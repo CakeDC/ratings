@@ -23,7 +23,6 @@ class RatingsComponent extends Object {
  * Components that are required
  *
  * @var array $components
- * @access public
  */
 	public $components = array('Cookie', 'Session', 'Auth', 'RequestHandler');
 
@@ -31,7 +30,6 @@ class RatingsComponent extends Object {
  * Enabled / disable the component
  *
  * @var boolean
- * @access public
  */
 	public $enabled = true;
 
@@ -41,7 +39,6 @@ class RatingsComponent extends Object {
  * Customizable in beforeFilter()
  *
  * @var array $actionNames
- * @access public
  */
 	public $actionNames = array('view');
 
@@ -51,7 +48,6 @@ class RatingsComponent extends Object {
  * Customizable in beforeFilter(), or default controller's model name is used
  *
  * @var string $modelName
- * @access public
  */
 	public $modelName = null;
 
@@ -61,7 +57,6 @@ class RatingsComponent extends Object {
  * Customizable in beforeFilter()
  *
  * @var string $assocName
- * @access public
  */
 	public $assocName = 'Rating';
 
@@ -69,7 +64,6 @@ class RatingsComponent extends Object {
  * List of named args used in component
  *
  * @var array $parameters
- * @access public
  */
 	public $parameters = array('rate' => true, 'rating'=> true, 'redirect' => true);
 
@@ -77,7 +71,6 @@ class RatingsComponent extends Object {
  * Callback
  *
  * @param object Controller object
- * @access public
  */
 	public function initialize(&$controller, $settings = array()) {
 		$this->controller = $controller;
@@ -105,7 +98,6 @@ class RatingsComponent extends Object {
  * Callback
  *
  * @param object Controller object
- * @access public
  */
 	public function startup(&$controller) {
 		$message = '';
@@ -128,7 +120,6 @@ class RatingsComponent extends Object {
  * @param string $rate the model record id
  * @param string $rating
  * @param mixed $redirect boolean to redirect to same url or string or array to use it for Router::url()
- * @access public
  */
 	public function rate($rate, $rating, $user, $redirect = false) {
 		$controller = $this->controller;
@@ -163,7 +154,6 @@ class RatingsComponent extends Object {
  * Clean url from rating parameters
  *
  * @return array
- * @access public
  */
 	public function buildUrl() {
 		$params = array('plugin' => $this->controller->params['plugin'], 'controller' => $this->controller->params['controller'],  'action' => $this->controller->params['action']);
@@ -184,7 +174,6 @@ class RatingsComponent extends Object {
  * @param unknown $code
  * @param boolean $exit
  * @return void
- * @access public
  */
 	public function redirect($url, $code = null, $exit = true) {
 		if (!empty($this->controller->viewVars['authMessage']) && !empty($this->controller->params['isJson'])) {
@@ -205,6 +194,4 @@ class RatingsComponent extends Object {
 
 		$this->controller->redirect($url, $code, $exit);
 	}
-
 }
-?>

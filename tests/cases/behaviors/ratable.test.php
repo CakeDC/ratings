@@ -9,6 +9,8 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+App::import('Core', array('AppModel', 'Model'));
+
 /**
  * CakePHP Ratings Plugin
  *
@@ -17,19 +19,19 @@
  * @package 	ratings
  * @subpackage 	ratings.tests.cases.behaviors
  */
-App::import('Core', array('AppModel', 'Model'));
 class RatableTest extends CakeTestCase {
 
 /**
  * Holds the instance of the model
  *
  * @var mixed
- * @access public
  */
 	public $Article = null;
 
 /**
- * 
+ * Fixtures
+ *
+ * @var array
  */
 	public $fixtures = array(
 		'plugin.ratings.rating',
@@ -38,9 +40,9 @@ class RatableTest extends CakeTestCase {
 		'plugin.ratings.user');
 
 /**
- * Method executed before each test
+ * startTest
  *
- * @access public
+ * @return void
  */
 	public function startTest() {
 		$this->Article = ClassRegistry::init('Article');
@@ -51,9 +53,9 @@ class RatableTest extends CakeTestCase {
 	}
 
 /**
- * Method executed after each test
+ * endTest
  *
- * @access public
+ * @return void
  */
 	public function endTest() {
 		unset($this->Article);
@@ -65,7 +67,6 @@ class RatableTest extends CakeTestCase {
  * Testing calculation of the rating
  *
  * @return void
- * @access public
  */
 	public function testCalculateRating() {
 		$this->Article->Behaviors->attach('Ratings.Ratable', array());
@@ -101,7 +102,6 @@ class RatableTest extends CakeTestCase {
  * Testing update of the rating
  *
  * @return void
- * @access public
  */
 	public function testIncrementRating() {
 		$this->Post->Behaviors->attach('Ratings.Ratable', array());
@@ -203,7 +203,6 @@ class RatableTest extends CakeTestCase {
  * testSaveRating
  *
  * @return void
- * @access public
  */
 	public function testSaveRating() {
 		$this->Article->Behaviors->attach('Ratings.Ratable', array());
@@ -220,7 +219,6 @@ class RatableTest extends CakeTestCase {
  * testSaveRating
  *
  * @return void
- * @access public
  */
 	public function testSaveRatingWithAdditionalFields() {
 		$this->Post->Behaviors->attach('Ratings.Ratable', array());
@@ -239,7 +237,6 @@ class RatableTest extends CakeTestCase {
  * testSaveRating
  *
  * @return void
- * @access public
  */
 	public function testSaveUpdatedRating() {
 		$this->Post->Behaviors->attach('Ratings.Ratable', array(
@@ -269,7 +266,6 @@ class RatableTest extends CakeTestCase {
  * testSaveRating
  *
  * @return void
- * @access public
  */
 	public function testRemoveRating() {
 		$this->Article->Behaviors->attach('Ratings.Ratable', array());
@@ -290,7 +286,6 @@ class RatableTest extends CakeTestCase {
  * testSaveRating
  *
  * @return void
- * @access public
  */
 	public function testRemoveRatingWithAdditionalFields() {
 		$this->Post->Behaviors->attach('Ratings.Ratable', array());
@@ -315,7 +310,6 @@ class RatableTest extends CakeTestCase {
  * testSaveRating
  *
  * @return void
- * @access public
  */
 	public function testRemoveUpdatedRating() {
 		$this->Post->Behaviors->attach('Ratings.Ratable', array(
@@ -357,7 +351,6 @@ class RatableTest extends CakeTestCase {
 /**
  * Testings Ratable::isRatedBy()
  *
- * @access public
  */
 	public function testIsRatedBy() {
 		$this->Article->Behaviors->attach('Ratings.Ratable', array());
@@ -375,7 +368,6 @@ class RatableTest extends CakeTestCase {
 /**
  * Testings Ratable::rate()
  *
- * @access public
  */
 	public function testRate() {
 		$this->Article->Behaviors->attach('Ratings.Ratable', array());
@@ -400,7 +392,6 @@ class RatableTest extends CakeTestCase {
 /**
  * Testings Ratable::cacheRatingStatistics()
  *
- * @access public
  */
 	public function testCacheRatingStatistics() {
 		$this->Article->Behaviors->attach('Ratings.Ratable', array());
@@ -471,6 +462,4 @@ class RatableTest extends CakeTestCase {
 		$result = $this->Article->read(null, 1);
 		$this->assertEqual($result['Article']['rating_3'], 0);
 	}
-
 }
-?>

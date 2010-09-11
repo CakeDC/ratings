@@ -23,7 +23,6 @@ class RatingHelper extends HtmlHelper {
  * helpers variable
  *
  * @var array
- * @access public
  */
 	public $helpers = array ('Html', 'Form');
 
@@ -31,7 +30,6 @@ class RatingHelper extends HtmlHelper {
  * Allowed types of html list elements
  *
  * @var array $allowedTypes
- * @access public
  */
 	public $allowedTypes = array('ul', 'ol', 'radio');
 
@@ -39,7 +37,6 @@ class RatingHelper extends HtmlHelper {
  * Default settings
  *
  * @var array $defaults
- * @access public
  */
 	public $defaults = array(
 		'stars' => 5,
@@ -58,7 +55,6 @@ class RatingHelper extends HtmlHelper {
  * @param array $options
  * @param array $urlHtmlAttributes Attributes for the rating links inside the list
  * @return string markup that displays the rating options
- * @access public
  */
 
 	public function display($options = array(), $urlHtmlAttributes = array()) {
@@ -101,7 +97,6 @@ class RatingHelper extends HtmlHelper {
  * @param integer total amount of rates
  * @param array options
  * @return string
- * @access public
  */
 	public function bar($value = 0, $total = 0, $options = array()) {
 		$defaultOptions = array(
@@ -138,7 +133,6 @@ class RatingHelper extends HtmlHelper {
  * @param integer total amount
  * @param integer precision of rounding
  * @return mixed float or integer based on the precision value
- * @access public
  */
 	public function percentage($value = 0, $total = 0, $precision = 2) {
 		if ($total) {
@@ -147,13 +141,12 @@ class RatingHelper extends HtmlHelper {
 		return 0;
 	}
 
-/*
+/**
  * Displays a star form
  *
  * @param array $options
  * @param array $urlHtmlAttributes Attributes for the rating links inside the list
  * @return string markup that displays the rating options
- * @access public
  */
 	public function starForm($options = array(), $urlHtmlAttributes = array()) {
 		$options = array_merge($this->defaults, $options);
@@ -179,4 +172,3 @@ class RatingHelper extends HtmlHelper {
 		return $result;
 	}
 }
-?>

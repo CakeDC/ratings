@@ -15,6 +15,4 @@
  * @package ratings
  */
 class RatingsAppModel extends AppModel {
-	
 }
-?>

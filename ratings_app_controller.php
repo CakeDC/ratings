@@ -15,6 +15,4 @@
  * @package ratings
  */
 class RatingsAppController extends AppController {
-	
 }
-?>

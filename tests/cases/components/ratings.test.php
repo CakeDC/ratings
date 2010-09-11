@@ -9,64 +9,95 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-/**
- * CakePHP Ratings Plugin
- *
- * Ratings component tests
- *
- * @package 	ratings
- * @subpackage 	ratings.tests.cases.components
- */
 App::import('Controller', 'Controller', false);
 App::import('Component', array('Ratings.Ratings', 'Session', 'Auth'));
 Mock::generate('AuthComponent');
-class Article extends CakeTestModel {
+
 /**
+ * Test Article Model
  *
+ * @package ratings
+ * @subpackage ratings.tests.cases.components
+ */
+class Article extends CakeTestModel {
+
+/**
+ * Model name
+ *
+ * @var string
  */
 	public $name = 'Article';
 }
 
+/**
+ * Test ArticlesTestController
+ *
+ * @package ratings
+ * @subpackage ratings.tests.cases.components
+ */
 class ArticlesTestController extends Controller {
 
 /**
+ * Controller Name
+ *
  * @var string
- * @access public
  */
 	public $name = 'ArticlesTest';
 
 /**
+ * Models used
+ *
  * @var array
- * @access public
  */
 	public $uses = array('Article');
 
 /**
+ * Components used
+ *
  * @var array
- * @access public
  */
 	public $components = array('Ratings.Ratings', 'Session', 'Auth');
 
+/**
+ * test method
+ *
+ * @return void
+ */
 	public function test() {
 		return;
 	}
 
+/**
+ * Overloaded redirect
+ *
+ * @param string $url 
+ * @param string $status 
+ * @param string $exit 
+ * @return void
+ */
 	public function redirect($url, $status = NULL, $exit = true) {
 		$this->redirect = $url;
 	}
 }
 
-
+/**
+ * Test RatingsComponentTest
+ *
+ * @package ratings
+ * @subpackage ratings.tests.cases.components
+ */
 class RatingsComponentTest extends CakeTestCase {
 
 /**
  * Controller using the tested component
+ *
  * @var ArticlesTestController
  */
 	public $Controller;
 
 /**
  * Mock AuthComponent object
+ *
  * @var MockAuthComponent
  */
 	public $AuthComponent;
@@ -75,7 +106,6 @@ class RatingsComponentTest extends CakeTestCase {
  * Fixtures
  *
  * @var array
- * @access public
  */
 	public $fixtures = array(
 		'plugin.ratings.rating',
@@ -85,7 +115,6 @@ class RatingsComponentTest extends CakeTestCase {
 /**
  * startTest method
  *
- * @access public
  * @return void
  */
 	function startTest() {
@@ -101,7 +130,6 @@ class RatingsComponentTest extends CakeTestCase {
 /**
  * endTest method
  *
- * @access public
  * @return void
  */
 	function endTest() {
@@ -113,7 +141,6 @@ class RatingsComponentTest extends CakeTestCase {
 /**
  * testInitialize
  *
- * @access public
  * @return void
  */
 	public function testInitialize() {
@@ -124,6 +151,11 @@ class RatingsComponentTest extends CakeTestCase {
 		$this->assertEqual($this->Controller->Ratings->modelName, 'Article');
 	}
 
+/**
+ * testInitializeWithParamsForBehavior
+ *
+ * @return void
+ */
 	public function testInitializeWithParamsForBehavior() {
 		$this->Controller->components = array('Ratings.Ratings' => array('update' => true), 'Session', 'Auth');
 		$this->__initControllerAndRatings(array(), false);
@@ -134,6 +166,11 @@ class RatingsComponentTest extends CakeTestCase {
 		$this->assertEqual($this->Controller->Ratings->modelName, 'Article');
 	}
 
+/**
+ * testInitializeWithParamsForComponent
+ *
+ * @return void
+ */
 	public function testInitializeWithParamsForComponent() {
 		$this->Controller->components = array('Ratings.Ratings' => array('actionNames' => array('show')), 'Session', 'Auth');
 		$this->__initControllerAndRatings(array(), false);
@@ -147,7 +184,6 @@ class RatingsComponentTest extends CakeTestCase {
 /**
  * testStartup
  *
- * @access public
  * @return void
  */
 	public function testStartup() {
@@ -185,6 +221,11 @@ class RatingsComponentTest extends CakeTestCase {
 		$this->assertEqual($this->Controller->Session->read('Message.error.message'), 'Invalid rate.');
 	}
 
+/**
+ * testStartupAcceptPost
+ *
+ * @return void
+ */
 	public function testStartupAcceptPost() {
 		$this->AuthComponent->setReturnValue('user', '1', array('id'));
 		$params = array(
@@ -210,7 +251,6 @@ class RatingsComponentTest extends CakeTestCase {
 /**
  * testBuildUrl
  *
- * @access public
  * @return void
  */
 	public function testBuildUrl() {
@@ -248,6 +288,4 @@ class RatingsComponentTest extends CakeTestCase {
 		$this->Controller->Component->initialize($this->Controller);
 		$this->Controller->Ratings->startup($this->Controller);
 	}
-
 }
-?>

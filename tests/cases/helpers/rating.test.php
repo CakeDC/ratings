@@ -9,6 +9,9 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+App::import('Core', array('ClassRegistry', 'Controller', 'View', 'Model', 'Security'));
+App::import('Helper', array('Html', 'Ratings.Rating', 'Form'));
+
 /**
  * CakePHP Ratings Plugin
  *
@@ -17,12 +20,11 @@
  * @package 	ratings
  * @subpackage 	ratings.tests.cases.helpers
  */
-App::import('Core', array('ClassRegistry', 'Controller', 'View', 'Model', 'Security'));
-App::import('Helper', array('Html', 'Ratings.Rating', 'Form'));
 class RatingHelperTestCase extends CakeTestCase {
 
 /**
  * Helper being tested
+ *
  * @var RatingHelper
  */
 	public $Rating;
@@ -147,5 +149,4 @@ class RatingHelperTestCase extends CakeTestCase {
 		unset($this->Rating);
 		ClassRegistry::flush();
 	}
-
 }

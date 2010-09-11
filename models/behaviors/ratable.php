@@ -18,11 +18,11 @@
  * @subpackage 	ratings.models.behaviors
  */
 class RatableBehavior extends ModelBehavior {
+
 /**
  * Settings array
  *
  * @var array
- * @access public
  */
 	public $settings = array();
 
@@ -43,7 +43,6 @@ class RatableBehavior extends ModelBehavior {
  * allowedValues	- @todo
  *
  * @var array
- * @access protected
  */
 	protected $_defaults = array(
 		'modelClass' => null,
@@ -64,7 +63,6 @@ class RatableBehavior extends ModelBehavior {
  * Rating modes
  *
  * @var array
- * @access public
  */
 	public $modes = array(
 		'average' => 'avg',
@@ -112,7 +110,6 @@ class RatableBehavior extends ModelBehavior {
  * @param string $userId
  * @param numeric $value
  * @return mixed boolean or calculated sum
- * @access public
  */
 	public function saveRating(Model $Model, $foreignKey = null, $userId = null, $value = 0) {
 		$type = 'saveRating';
@@ -161,7 +158,6 @@ class RatableBehavior extends ModelBehavior {
  * @param string $userId
  * @param numeric $value
  * @return mixed boolean or calculated sum
- * @access public
  */
 	public function removeRating(Model $Model, $foreignKey = null, $userId = null) {
 		$type = 'removeRating';
@@ -206,7 +202,6 @@ class RatableBehavior extends ModelBehavior {
  * @param mixed $saveToField boolean or fieldname
  * @param string $mode type of calculation
  * @return mixed boolean or calculated sum
- * @access public
  */
 	public function decrementRating(Model $Model, $foreignKey = null, $oldRating, $saveToField = true, $mode = 'average', $update = false) {
 		if (!in_array($mode, array_keys($this->modes))) {
@@ -264,7 +259,6 @@ class RatableBehavior extends ModelBehavior {
  * @param mixed $saveToField boolean or fieldname
  * @param string $mode type of calculation
  * @return mixed boolean or calculated sum
- * @access public
  */
 	public function incrementRating(Model $Model, $foreignKey = null, $value, $saveToField = true, $mode = 'average', $update = false) {
 		if (!in_array($mode, array_keys($this->modes))) {
@@ -326,7 +320,6 @@ class RatableBehavior extends ModelBehavior {
  * @param mixed $saveToField boolean or fieldname
  * @param string $mode type of calculation
  * @return mixed boolean or calculated sum
- * @access public
  */
 	public function calculateRating(Model $Model, $foreignKey = null, $saveToField = true, $mode = 'average') {
 		if (!in_array($mode, array_keys($this->modes))) {
@@ -361,7 +354,6 @@ class RatableBehavior extends ModelBehavior {
  * @param mixed Single foreign key as uuid or int or array of foreign keys
  * @param mixed Boolean true or false if a single foreign key was supplied else an array of already voted keys
  * @return boolean true if already rated
- * @access public
  */
 	public function isRatedBy(Model $Model, $foreignKey = null, $userId = null) {
 		$findMethod = 'first';
@@ -392,7 +384,6 @@ class RatableBehavior extends ModelBehavior {
  * @param AppModel $Model
  * @param array
  * @return void
- * @access public
  */
 	public function afterRateCallback(Model $Model, $data = array()) {
 		if (method_exists($Model, 'afterRate')) {
@@ -406,7 +397,6 @@ class RatableBehavior extends ModelBehavior {
  * @param AppModel $Model
  * @param array
  * @return void
- * @access public
  */
 	public function beforeRateCallback(Model $Model, $data = array()) {
 		if (method_exists($Model, 'beforeRate')) {
@@ -423,7 +413,6 @@ class RatableBehavior extends ModelBehavior {
  * @param mixed integer or string rating
  * @param array options
  * @param return boolean True on success
- * @access public
  */
 	public function rate(Model $Model, $foreignKey = null, $userId = null, $rating = null, $options = array()) {
 		$defaults = array(
@@ -470,7 +459,6 @@ class RatableBehavior extends ModelBehavior {
  * @param object Model
  * @param array Data passed to afterRate() or similar structure
  * @return boolean True on success
- * @access public
  */
 	public function cacheRatingStatistics(Model $Model, $data = array()) {
 		extract($data);
@@ -505,7 +493,6 @@ class RatableBehavior extends ModelBehavior {
  * @param string $value
  * @param string $prefix
  * @return string
- * @access protected
  */
 	protected function _fieldName($value, $prefix = 'rating_') {
 		$postfix = $value;
@@ -514,6 +501,4 @@ class RatableBehavior extends ModelBehavior {
 		}
 		return $prefix . $postfix;
 	}
-
 }
-?>

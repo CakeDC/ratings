@@ -23,7 +23,6 @@ class Rating extends RatingsAppModel {
  * Name
  *
  * @var string $name
- * @access public
  */
 	public $name = 'Rating';
 
@@ -31,7 +30,6 @@ class Rating extends RatingsAppModel {
  * Validation rules
  *
  * @var array $validate
- * @access public
  */
 	public $validate = array();
 
@@ -41,7 +39,6 @@ class Rating extends RatingsAppModel {
  * Set the translateable validation messages in the constructor.
  *
  * @return void
- * @access public
  */
 	public function __construct($id = false, $table = null, $ds = null) {
 		$userClass = Configure::read('App.UserClass');
@@ -69,4 +66,3 @@ class Rating extends RatingsAppModel {
 				'required' => $rules['notEmpty']));
 	}
 }
-?>

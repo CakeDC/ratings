@@ -20,16 +20,23 @@
 class RatingTestCase extends CakeTestCase {
 
 /**
- * 
+ * Rating Model
+ *
+ * @var Rating
  */
 	public $Rating = null;
+
 /**
- * 
+ * Plugin name
+ *
+ * @var string
  */
 	public $plugin = 'ratings';
 
 /**
- * 
+ * Fixtures
+ *
+ * @var array
  */
 	public $fixtures = array(
 		'plugin.ratings.user',
@@ -41,7 +48,6 @@ class RatingTestCase extends CakeTestCase {
  *
  * @param string $method
  * @return void
- * @access public
  */
 	public function startTest($method) {
 		Configure::write('App.UserClass', null); 
@@ -50,11 +56,11 @@ class RatingTestCase extends CakeTestCase {
 	}
 
 /**
- * 
+ * testRatingInstance
+ *
+ * @return void
  */
 	public function testRatingInstance() {
 		$this->assertTrue(is_a($this->Rating, 'Rating'));
 	}
-
 }
-?>
