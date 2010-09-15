@@ -426,19 +426,19 @@ class RatableBehavior extends ModelBehavior {
 		$options = array_merge($defaults, $options);
 
 		if (!in_array($rating, array_keys($options['values']))) {
-			throw new OutOfBoundsException(__('Invalid Rating', true));
+			throw new OutOfBoundsException(__d('ratings', 'Invalid Rating', true));
 		}
 
 		$record = $Model->find('first', $options['find']);
 
 		if (empty($record)) {
-			throw new OutOfBoundsException(__('Invalid Record', true));
+			throw new OutOfBoundsException(__d('ratings', 'Invalid Record', true));
 		}
 
 		if ($options['userField'] !== false && $Model->getColumnType($options['userField'])) {
 			if ($record[$Model->alias][$options['userField']] == $userId) {
 				$Model->data = $record;
-				throw new LogicException(__('You can not vote on your own records', true));
+				throw new LogicException(__d('ratings', 'You can not vote on your own records', true));
 			}
 		}
 
@@ -446,7 +446,7 @@ class RatableBehavior extends ModelBehavior {
 			$Model->data = $record;
 			return true;
 		} else {
-			throw new Exception(__('You have already rated this record', true));
+			throw new Exception(__d('ratings', 'You have already rated this record', true));
 		}
 	}
 

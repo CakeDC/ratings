@@ -1,0 +1,63 @@
+# LANGUAGE translation of the CakePHP Ratings plugin
+#
+# Copyright 2010, Cake Development Corporation (http://cakedc.com)
+#
+# Licensed under The MIT License
+# Redistributions of files must retain the above copyright notice.
+#
+# @copyright Copyright 2010, Cake Development Corporation (http://cakedc.com)
+# @license MIT License (http://www.opensource.org/licenses/mit-license.php)
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2010-09-15 15:27+0200\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /controllers/components/ratings.php:130
+msgid "Your rate was successfull."
+msgstr ""
+
+#: /controllers/components/ratings.php:133
+msgid "You have already rated."
+msgstr ""
+
+#: /controllers/components/ratings.php:137
+msgid "Invalid rate."
+msgstr ""
+
+#: /models/behaviors/ratable.php:208;265;326
+msgid "Invalid rating mode %s."
+msgstr ""
+
+#: /models/behaviors/ratable.php:429
+msgid "Invalid Rating"
+msgstr ""
+
+#: /models/behaviors/ratable.php:435
+msgid "Invalid Record"
+msgstr ""
+
+#: /models/behaviors/ratable.php:441
+msgid "You can not vote on your own records"
+msgstr ""
+
+#: /models/behaviors/ratable.php:449
+msgid "You have already rated this record"
+msgstr ""
+
+#: /views/helpers/rating.php:63;154
+msgid "You must set the id of the item you want to rate."
+msgstr ""
+
+#: /views/helpers/rating.php:169
+msgid "Rate!"
+msgstr ""
+
