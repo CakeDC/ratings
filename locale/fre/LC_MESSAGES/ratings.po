@@ -1,0 +1,52 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CakePHP Ratings Plugin\n"
+"POT-Creation-Date: 2010-09-15 15:27+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Pierre MARTIN <contact@pierre-martin.fr>\n"
+"Language-Team: CakeDC <contact@cakedc.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: French\n"
+
+#: /controllers/components/ratings.php:130
+msgid "Your rate was successfull."
+msgstr "Votre note a été prise en compte."
+
+#: /controllers/components/ratings.php:133
+msgid "You have already rated."
+msgstr "Vous avez déjà noté."
+
+#: /controllers/components/ratings.php:137
+msgid "Invalid rate."
+msgstr "Note invalide."
+
+#: /models/behaviors/ratable.php:208;265;326
+msgid "Invalid rating mode %s."
+msgstr "Mode de notation %s invalide."
+
+#: /models/behaviors/ratable.php:429
+msgid "Invalid Rating"
+msgstr "Note invalide"
+
+#: /models/behaviors/ratable.php:435
+msgid "Invalid Record"
+msgstr "Enregistrement invalide"
+
+#: /models/behaviors/ratable.php:441
+msgid "You can not vote on your own records"
+msgstr "Vous ne pouvez pas noter vos propres contenus"
+
+#: /models/behaviors/ratable.php:449
+msgid "You have already rated this record"
+msgstr "Vous avez déjà noté ce contenu"
+
+#: /views/helpers/rating.php:63;154
+msgid "You must set the id of the item you want to rate."
+msgstr "Vous devez définir l'id de l'objet que vous voulez noter."
+
+#: /views/helpers/rating.php:169
+msgid "Rate!"
+msgstr "Noter !"
+
