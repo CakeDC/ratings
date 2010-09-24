@@ -1,3 +1,14 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Ratings CakePHP plugin\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: José Lorenzo Rodríguez <jose.lorenzo@cakedc.com>\n"
+"Language-Team: CakeDC <contact@cakedc.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
 # LANGUAGE translation of the CakePHP Ratings plugin
 #
 # Copyright 2010, Cake Development Corporation (http://cakedc.com)
@@ -9,53 +20,43 @@
 # @license MIT License (http://www.opensource.org/licenses/mit-license.php)
 #
 #
-"Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-09-15 15:27+0200\n"
-"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Last-Translator: NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
 #: /controllers/components/ratings.php:130
 msgid "Your rate was successfull."
-msgstr ""
+msgstr "Tu calificación fue guardada"
 
 #: /controllers/components/ratings.php:133
 msgid "You have already rated."
-msgstr ""
+msgstr "Ya has calificado"
 
 #: /controllers/components/ratings.php:137
 msgid "Invalid rate."
-msgstr ""
+msgstr "Calificación no válida"
 
 #: /models/behaviors/ratable.php:208;265;326
 msgid "Invalid rating mode %s."
-msgstr ""
+msgstr "Modo de calificación %s no válido"
 
 #: /models/behaviors/ratable.php:429
 msgid "Invalid Rating"
-msgstr ""
+msgstr "Calificación inválida"
 
 #: /models/behaviors/ratable.php:435
 msgid "Invalid Record"
-msgstr ""
+msgstr "Registro inválido"
 
 #: /models/behaviors/ratable.php:441
 msgid "You can not vote on your own records"
-msgstr ""
+msgstr "No puedes votar en tus propios registros"
 
 #: /models/behaviors/ratable.php:449
 msgid "You have already rated this record"
-msgstr ""
+msgstr "Ya has calificado este registro"
 
 #: /views/helpers/rating.php:63;154
 msgid "You must set the id of the item you want to rate."
-msgstr ""
+msgstr "Debe asignar el id del elemento que desea calificar"
 
 #: /views/helpers/rating.php:169
 msgid "Rate!"
-msgstr ""
+msgstr "¡Vota!"
 
