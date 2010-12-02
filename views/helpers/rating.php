@@ -24,7 +24,7 @@ class RatingHelper extends HtmlHelper {
  *
  * @var array
  */
-	public $helpers = array ('Html', 'Form');
+	public $helpers = array ('Html', 'Form', 'Js' => 'Jquery');
 
 /**
  * Allowed types of html list elements
@@ -150,6 +150,7 @@ class RatingHelper extends HtmlHelper {
  */
 	public function starForm($options = array(), $urlHtmlAttributes = array()) {
 		$options = array_merge($this->defaults, $options);
+		$flush = false;
 		if (empty($options['item'])) {
 			trigger_error(__d('ratings', 'You must set the id of the item you want to rate.', true), E_USER_NOTICE);
 		}
@@ -166,8 +167,16 @@ class RatingHelper extends HtmlHelper {
 			'value' => isset($options['value']) ? round($options['value']) : 0,
 			'options' => array_combine(range(1, $options['stars']), range(1, $options['stars']))));
 		if ($options['createForm']) {
-			$result .= $this->Form->submit(__d('ratings', 'Rate!', true)) . "\n";
+			if (!empty($options['target']) && !empty($options['createForm']['url']) && !empty($options['createForm']['ajaxOptions'])) {
+				$result .= $this->Js->submit(__d('ratings', 'Rate!', true), array_merge(array('url' => $options['createForm']['url']), $options['createForm']['ajaxOptions'])) . "\n";
+				$flush = true;
+			} else {
+				$result .= $this->Form->submit(__d('ratings', 'Rate!', true)) . "\n";
+			}
 			$result .= $this->Form->end() . "\n";
+			if ($flush) {
+				$this->Js->writeBuffer();
+			}
 		}
 		return $result;
 	}
