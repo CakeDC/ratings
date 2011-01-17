@@ -12,6 +12,7 @@
 App::import('Controller', 'Controller', false);
 App::import('Component', array('Ratings.Ratings', 'Session', 'Auth'));
 Mock::generate('AuthComponent');
+Mock::generate('SessionComponent');
 
 /**
  * Test Article Model
@@ -103,6 +104,13 @@ class RatingsComponentTest extends CakeTestCase {
 	public $AuthComponent;
 
 /**
+ * Mock SessionComponent object
+ *
+ * @var MockSessionComponent
+ */
+	public $SessionComponent;
+
+/**
  * Fixtures
  *
  * @var array
@@ -125,6 +133,10 @@ class RatingsComponentTest extends CakeTestCase {
 		$this->AuthComponent = new MockAuthComponent();
 		$this->AuthComponent->enabled = true;
 		$this->Controller->Auth = $this->AuthComponent;
+
+		$this->SessionComponent = new MockSessionComponent();
+		$this->SessionComponent->enabled = true;
+		$this->Controller->Session = $this->SessionComponent;
 	}
 
 /**
@@ -203,22 +215,25 @@ class RatingsComponentTest extends CakeTestCase {
 			'controller' => 'articles',
 			'action' => 'test');
 
+		$this->Controller->Session->expectCallCount('setFlash', 3);
+
+		$this->Controller->Session->expectAt(0, 'setFlash', array('Your rate was successfull.', 'default', array(), 'success'));
+		$this->Controller->Session->expectAt(1, 'setFlash', array('You have already rated.', 'default', array(), 'error'));
+		$this->Controller->Session->expectAt(2, 'setFlash', array('Invalid rate.', 'default', array(), 'error'));
+
 		$this->Controller->Session->write('Message', null);
 		$this->__initControllerAndRatings($params);
 		$this->assertEqual($this->Controller->redirect, $expectedRedirect);
-		$this->assertEqual($this->Controller->Session->read('Message.success.message'), 'Your rate was successfull.');
-		
+
 		$this->Controller->Session->write('Message', null);
 		$params['named']['rate'] = '1';
 		$this->__initControllerAndRatings($params);
 		$this->assertEqual($this->Controller->redirect, $expectedRedirect);
-		$this->assertEqual($this->Controller->Session->read('Message.error.message'), 'You have already rated.');
 
 		$this->Controller->Session->write('Message', null);
 		$params['named']['rate'] = 'invalid-record!';
 		$this->__initControllerAndRatings($params);
 		$this->assertEqual($this->Controller->redirect, $expectedRedirect);
-		$this->assertEqual($this->Controller->Session->read('Message.error.message'), 'Invalid rate.');
 	}
 
 /**
@@ -243,11 +258,11 @@ class RatingsComponentTest extends CakeTestCase {
 		$this->Controller->data = array('Article' => array('rating' => 2));
 	
 		$this->Controller->Session->write('Message', null);
+		$this->Controller->Session->expectOnce('setFlash');
 		$this->__initControllerAndRatings($params);
 		$this->assertEqual($this->Controller->redirect, $expectedRedirect);
-		$this->assertEqual($this->Controller->Session->read('Message.success.message'), 'Your rate was successfull.');
 	}
-	
+
 /**
  * testBuildUrl
  *
