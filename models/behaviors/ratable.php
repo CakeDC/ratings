@@ -79,7 +79,7 @@ class RatableBehavior extends ModelBehavior {
 		if (!isset($this->settings[$Model->alias])) {
 			$this->settings[$Model->alias] = $this->_defaults;
 		}
-		$this->settings[$Model->alias] = am($this->settings[$Model->alias], ife(is_array($settings), $settings, array()));
+		$this->settings[$Model->alias] = am($this->settings[$Model->alias], (is_array($settings) ? $settings : array()));
 		if (empty($this->settings[$Model->alias]['modelClass'])) {
 			$this->settings[$Model->alias]['modelClass'] = $Model->name;
 		}

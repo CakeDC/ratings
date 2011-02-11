@@ -45,6 +45,7 @@ class RatableTest extends CakeTestCase {
  * @return void
  */
 	public function startTest() {
+		Configure::write('App.UserClass', null);
 		$this->Article = ClassRegistry::init('Article');
 		$this->Post = ClassRegistry::init('Post');
 		$this->Article->alias = 'Article';
