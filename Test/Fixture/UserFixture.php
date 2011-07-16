@@ -20,9 +20,8 @@
  
 if (!class_exists('User')) {
 	class User extends Model {
-
 	}
-}  
+}
 class UserFixture extends CakeTestFixture {
 
 /**
@@ -170,7 +169,7 @@ class UserFixture extends CakeTestFixture {
  */
 	public function __construct() {
 		parent::__construct();
-		App::import('Core', 'Security');
+		App::uses('Security', 'Utility');
 		foreach ($this->records as &$record) {
 			$record['passwd'] = Security::hash($record['passwd'], null, true);
 		}

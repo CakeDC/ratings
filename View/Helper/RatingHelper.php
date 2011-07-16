@@ -60,7 +60,7 @@ class RatingHelper extends AppHelper {
 	public function display($options = array(), $urlHtmlAttributes = array()) {
 		$options = array_merge($this->defaults, $options);
 		if (empty($options['item'])) {
-			throw new Exception(__d('ratings', 'You must set the id of the item you want to rate.', true), E_USER_NOTICE);
+			throw new Exception(__d('ratings', 'You must set the id of the item you want to rate.'), E_USER_NOTICE);
 		}
 
 		if ($options['type'] == 'radio') {
@@ -152,7 +152,7 @@ class RatingHelper extends AppHelper {
 		$options = array_merge($this->defaults, $options);
 		$flush = false;
 		if (empty($options['item'])) {
-			trigger_error(__d('ratings', 'You must set the id of the item you want to rate.', true), E_USER_NOTICE);
+			trigger_error(__d('ratings', 'You must set the id of the item you want to rate.'), E_USER_NOTICE);
 		}
 		$result = '';
 		if ($options['createForm']) {
@@ -168,10 +168,10 @@ class RatingHelper extends AppHelper {
 			'options' => array_combine(range(1, $options['stars']), range(1, $options['stars']))));
 		if ($options['createForm']) {
 			if (!empty($options['target']) && !empty($options['createForm']['url']) && !empty($options['createForm']['ajaxOptions'])) {
-				$result .= $this->Js->submit(__d('ratings', 'Rate!', true), array_merge(array('url' => $options['createForm']['url']), $options['createForm']['ajaxOptions'])) . "\n";
+				$result .= $this->Js->submit(__d('ratings', 'Rate!'), array_merge(array('url' => $options['createForm']['url']), $options['createForm']['ajaxOptions'])) . "\n";
 				$flush = true;
 			} else {
-				$result .= $this->Form->submit(__d('ratings', 'Rate!', true)) . "\n";
+				$result .= $this->Form->submit(__d('ratings', 'Rate!')) . "\n";
 			}
 			$result .= $this->Form->end() . "\n";
 			if ($flush) {

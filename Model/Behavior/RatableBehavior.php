@@ -79,7 +79,7 @@ class RatableBehavior extends ModelBehavior {
 		if (!isset($this->settings[$Model->alias])) {
 			$this->settings[$Model->alias] = $this->_defaults;
 		}
-		$this->settings[$Model->alias] = am($this->settings[$Model->alias], ife(is_array($settings), $settings, array()));
+		$this->settings[$Model->alias] = array_merge($this->settings[$Model->alias], $settings);
 		if (empty($this->settings[$Model->alias]['modelClass'])) {
 			$this->settings[$Model->alias]['modelClass'] = $Model->name;
 		}
@@ -205,7 +205,7 @@ class RatableBehavior extends ModelBehavior {
  */
 	public function decrementRating(Model $Model, $foreignKey = null, $oldRating, $saveToField = true, $mode = 'average', $update = false) {
 		if (!in_array($mode, array_keys($this->modes))) {
-			throw new InvalidArgumentException(sprintf(__d('ratings', 'Invalid rating mode %s.', true),$mode));
+			throw new InvalidArgumentException(sprintf(__d('ratings', 'Invalid rating mode %s.'),$mode));
 		}
 
 		$data = $Model->find('first', array(
@@ -262,7 +262,7 @@ class RatableBehavior extends ModelBehavior {
  */
 	public function incrementRating(Model $Model, $foreignKey = null, $value, $saveToField = true, $mode = 'average', $update = false) {
 		if (!in_array($mode, array_keys($this->modes))) {
-			throw new InvalidArgumentException(sprintf(__d('ratings', 'Invalid rating mode %s.', true),$mode));
+			throw new InvalidArgumentException(sprintf(__d('ratings', 'Invalid rating mode %s.'),$mode));
 		}
 
 		$data = $Model->find('first', array(
@@ -323,7 +323,7 @@ class RatableBehavior extends ModelBehavior {
  */
 	public function calculateRating(Model $Model, $foreignKey = null, $saveToField = true, $mode = 'average') {
 		if (!in_array($mode, array_keys($this->modes))) {
-			throw new InvalidArgumentException(sprintf(__d('ratings', 'Invalid rating mode %s.', true),$mode));
+			throw new InvalidArgumentException(sprintf(__d('ratings', 'Invalid rating mode %s.'),$mode));
 		}
 
 		$result = $Model->Rating->find(
@@ -426,19 +426,19 @@ class RatableBehavior extends ModelBehavior {
 		$options = array_merge($defaults, $options);
 
 		if (!in_array($rating, array_keys($options['values']))) {
-			throw new OutOfBoundsException(__d('ratings', 'Invalid Rating', true));
+			throw new OutOfBoundsException(__d('ratings', 'Invalid Rating'));
 		}
 
 		$record = $Model->find('first', $options['find']);
 
 		if (empty($record)) {
-			throw new OutOfBoundsException(__d('ratings', 'Invalid Record', true));
+			throw new OutOfBoundsException(__d('ratings', 'Invalid Record'));
 		}
 
 		if ($options['userField'] !== false && $Model->getColumnType($options['userField'])) {
 			if ($record[$Model->alias][$options['userField']] == $userId) {
 				$Model->data = $record;
-				throw new LogicException(__d('ratings', 'You can not vote on your own records', true));
+				throw new LogicException(__d('ratings', 'You can not vote on your own records'));
 			}
 		}
 
@@ -446,7 +446,7 @@ class RatableBehavior extends ModelBehavior {
 			$Model->data = $record;
 			return true;
 		} else {
-			throw new Exception(__d('ratings', 'You have already rated this record', true));
+			throw new Exception(__d('ratings', 'You have already rated this record'));
 		}
 	}
 

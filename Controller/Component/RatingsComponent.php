@@ -17,7 +17,7 @@
  * @package 	ratings
  * @subpackage 	ratings.controllers.components
  */
-class RatingsComponent extends Object {
+class RatingsComponent extends Component {
 
 /**
  * Components that are required
@@ -127,14 +127,14 @@ class RatingsComponent extends Object {
 		if ($controller->{$this->modelName}->exists(true)) {
 			if ($controller->{$this->modelName}->saveRating($rate, $user, $rating)) {
 				$rating = round($controller->{$this->modelName}->newRating);
-				$message = __d('ratings', 'Your rate was successfull.', true);
+				$message = __d('ratings', 'Your rate was successfull.');
 				$status = 'success';
 			} else {
-				$message = __d('ratings', 'You have already rated.', true);
+				$message = __d('ratings', 'You have already rated.');
 				$status = 'error';
 			}
 		} else {
-			$message = __d('ratings', 'Invalid rate.', true);
+			$message = __d('ratings', 'Invalid rate.');
 			$status = 'error';
 		}
 		$result = compact('status', 'message', 'rating');
