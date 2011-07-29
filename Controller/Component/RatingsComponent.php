@@ -17,6 +17,8 @@
  * @package 	ratings
  * @subpackage 	ratings.controllers.components
  */
+App::uses('Component', 'Controller');
+
 class RatingsComponent extends Component {
 
 /**
@@ -72,25 +74,25 @@ class RatingsComponent extends Component {
  *
  * @param object Controller object
  */
-	public function initialize(&$controller, $settings = array()) {
-		$this->controller = $controller;
+	public function initialize(&$Controller, $settings = array()) {
+		$this->Controller = $Controller;
  		if ($this->enabled == true) {
 			foreach ($settings as $setting => $value) {
 				if (isset($this->{$setting})) {
 					$this->{$setting} = $value;
 				}
 			}
-			$this->controller->params['isJson'] = (isset($this->controller->params['url']['ext']) && $this->controller->params['url']['ext'] === 'json');
-			if ($this->controller->params['isJson']) {
+			$this->Controller->request->params['isJson'] = (isset($this->Controller->request->params['url']['ext']) && $this->Controller->request->params['url']['ext'] === 'json');
+			if ($this->Controller->request->params['isJson']) {
 				Configure::write('debug', 0);
 			}
 			if (empty($this->modelName)) {
-				$this->modelName = $controller->modelClass;
+				$this->modelName = $Controller->modelClass;
 			}
-			if (!$controller->{$this->modelName}->Behaviors->attached('Ratable')) {
-				$controller->{$this->modelName}->Behaviors->attach('Ratings.Ratable', $settings);
+			if (!$Controller->{$this->modelName}->Behaviors->attached('Ratable')) {
+				$Controller->{$this->modelName}->Behaviors->load('Ratings.Ratable', $settings);
 			}
-			$controller->helpers[] = 'Ratings.Rating';
+			$Controller->helpers[] = 'Ratings.Rating';
 		}
 	}
 
@@ -99,15 +101,14 @@ class RatingsComponent extends Component {
  *
  * @param object Controller object
  */
-	public function startup(&$controller) {
+	public function startup(&$Controller) {
 		$message = '';
 		$rating = null;
-		$params = $controller->params['named'];
-		if (empty($params['rating']) && !empty($controller->data[$controller->modelClass]['rating'])) {
-			$params['rating'] = $controller->data[$controller->modelClass]['rating'];
-			
+		$params = $Controller->request->params['named'];
+		if (empty($params['rating']) && !empty($Controller->request->data[$Controller->modelClass]['rating'])) {
+			$params['rating'] = $Controller->request->data[$Controller->modelClass]['rating'];
 		}
-		if (!method_exists($controller, 'rate')) {
+		if (!method_exists($Controller, 'rate')) {
 			if (isset($params['rate']) && isset($params['rating']) && $this->enabled == true) {
 				$this->rate($params['rate'], $params['rating'], $this->Auth->user('id'), !empty($params['redirect']));
 			}
@@ -122,11 +123,11 @@ class RatingsComponent extends Component {
  * @param mixed $redirect boolean to redirect to same url or string or array to use it for Router::url()
  */
 	public function rate($rate, $rating, $user, $redirect = false) {
-		$controller = $this->controller;
-		$controller->{$this->modelName}->id = $rate;
-		if ($controller->{$this->modelName}->exists(true)) {
-			if ($controller->{$this->modelName}->saveRating($rate, $user, $rating)) {
-				$rating = round($controller->{$this->modelName}->newRating);
+		$Controller = $this->Controller;
+		$Controller->{$this->modelName}->id = $rate;
+		if ($Controller->{$this->modelName}->exists(true)) {
+			if ($Controller->{$this->modelName}->saveRating($rate, $user, $rating)) {
+				$rating = round($Controller->{$this->modelName}->newRating);
 				$message = __d('ratings', 'Your rate was successfull.');
 				$status = 'success';
 			} else {
@@ -138,7 +139,7 @@ class RatingsComponent extends Component {
 			$status = 'error';
 		}
 		$result = compact('status', 'message', 'rating');
-		$this->controller->set($result);
+		$this->Controller->set($result);
 		if (!empty($redirect)) {
 			if (is_bool($redirect)) {
 				$this->redirect($this->buildUrl());
@@ -156,9 +157,9 @@ class RatingsComponent extends Component {
  * @return array
  */
 	public function buildUrl() {
-		$params = array('plugin' => $this->controller->params['plugin'], 'controller' => $this->controller->params['controller'],  'action' => $this->controller->params['action']);
-		$params = array_merge($params, $this->controller->params['pass']);
-		foreach ($this->controller->params['named'] as $name => $value) {
+		$params = array('plugin' => $this->Controller->request->params['plugin'], 'controller' => $this->Controller->request->params['controller'],  'action' => $this->Controller->request->params['action']);
+		$params = array_merge($params, $this->Controller->request->params['pass']);
+		foreach ($this->Controller->request->params['named'] as $name => $value) {
 			if (!isset($this->parameters[$name])) {
 				$params[$name] = $value;
 			}
@@ -176,22 +177,22 @@ class RatingsComponent extends Component {
  * @return void
  */
 	public function redirect($url, $code = null, $exit = true) {
-		if (!empty($this->controller->viewVars['authMessage']) && !empty($this->controller->params['isJson'])) {
-			$this->RequestHandler->renderAs($this->controller, 'json');
-			$this->set('message', $this->controller->viewVars['authMessage']);
+		if (!empty($this->Controller->viewVars['authMessage']) && !empty($this->Controller->request->params['isJson'])) {
+			$this->RequestHandler->renderAs($this->Controller, 'json');
+			$this->set('message', $this->Controller->viewVars['authMessage']);
 			$this->set('status', 'error');
-			echo $this->controller->render('rate');
+			echo $this->Controller->render('rate');
 			$this->_stop();
 		} elseif (!empty($this->viewVars['authMessage'])) {
 			$this->Session->setFlash($this->viewVars['authMessage']);
 		}
-		if (!empty($this->controller->params['isAjax']) || !empty($this->controller->params['isJson'])) {
-			$this->controller->setAction('rated', $this->controller->params['named']['rate']);
-			return $this->controller->render('rated');
-		} else if (isset($this->controller->viewVars['status']) && isset($this->controller->viewVars['message'])) {
-			$this->controller->Session->setFlash($this->controller->viewVars['message'], 'default', array(), $this->controller->viewVars['status']);
+		if (!empty($this->Controller->request->params['isAjax']) || !empty($this->Controller->request->params['isJson'])) {
+			$this->Controller->setAction('rated', $this->Controller->request->params['named']['rate']);
+			return $this->Controller->render('rated');
+		} else if (isset($this->Controller->viewVars['status']) && isset($this->Controller->viewVars['message'])) {
+			$this->Controller->Session->setFlash($this->Controller->viewVars['message'], 'default', array(), $this->Controller->viewVars['status']);
 		}
 
-		$this->controller->redirect($url, $code, $exit);
+		$this->Controller->redirect($url, $code, $exit);
 	}
 }

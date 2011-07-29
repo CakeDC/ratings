@@ -164,6 +164,7 @@ class RatingHelper extends AppHelper {
 		}
 		$result .= $this->Form->input($inputField, array(
 			'type' => 'radio',
+			'legend' => false,
 			'value' => isset($options['value']) ? round($options['value']) : 0,
 			'options' => array_combine(range(1, $options['stars']), range(1, $options['stars']))));
 		if ($options['createForm']) {

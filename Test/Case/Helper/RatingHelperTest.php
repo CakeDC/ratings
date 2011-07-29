@@ -9,9 +9,7 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-//App::import('Core', array('ClassRegistry', 'Controller', 'View', 'Model', 'Security'));
 App::import('Helper', array('Html', 'Ratings.Rating', 'Form'));
-
 App::uses('Controller', 'Controller');
 
 
@@ -133,8 +131,8 @@ class RatingHelperTestCase extends CakeTestCase {
 			'stars' => 2);
 		$result = $this->Rating->display($options);
 
-		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1" value="1"  /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2" value="2"  /><label for="Rating2">2</label></div>';
-		$this->assertEqual($result, $expected);	
+		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1"  value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2"  value="2" /><label for="Rating2">2</label></div>';
+		$this->assertEqual($result, $expected);
 
 		$options = array(
 			'item' => '42',
@@ -143,8 +141,8 @@ class RatingHelperTestCase extends CakeTestCase {
 			'stars' => 2);
 		$result = $this->Rating->display($options);
 
-		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1" value="1"  /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2" value="2"  /><label for="Rating2">2</label></div>';
-		$this->assertEqual($result, $expected);	
+		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1"  value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2"  value="2" /><label for="Rating2">2</label></div>';
+		$this->assertEqual($result, $expected);
 	}
 
 /**
