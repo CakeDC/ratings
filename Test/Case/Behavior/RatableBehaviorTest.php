@@ -409,7 +409,7 @@ class RatableTest extends CakeTestCase {
 					'id' => 1)));
 
 		$result = $this->Article->cacheRatingStatistics($data);
-		$this->assertTrue($result);
+		$this->assertTrue(!empty($result));
 
 		$this->Article->recursive = -1;
 		$result = $this->Article->read(null, 1);
@@ -455,7 +455,7 @@ class RatableTest extends CakeTestCase {
 					'id' => 1)));
 
 		$result = $this->Article->cacheRatingStatistics($data);
-		$this->assertTrue($result);
+		$this->assertTrue(!empty($result));
 
 		$this->Article->recursive = -1;
 		$result = $this->Article->read(null, 1);
