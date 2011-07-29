@@ -70,18 +70,29 @@ class RatingsComponent extends Component {
 	public $parameters = array('rate' => true, 'rating'=> true, 'redirect' => true);
 
 /**
- * Callback
+ * Constructor. 
  *
- * @param object Controller object
+ * @throws CakeException when Acl.classname could not be loaded.
  */
-	public function initialize(&$Controller, $settings = array()) {
-		$this->Controller = $Controller;
+	public function __construct(ComponentCollection $collection, $settings = array()) {
+		parent::__construct($collection, $settings);
  		if ($this->enabled == true) {
 			foreach ($settings as $setting => $value) {
 				if (isset($this->{$setting})) {
 					$this->{$setting} = $value;
 				}
 			}
+		}
+	} 	
+/**
+ * Callback
+ *
+ * @param object Controller object
+ */
+	public function initialize(&$Controller) {
+	//public function initialize(&$Controller, $settings = array()) {
+		$this->Controller = $Controller;
+ 		if ($this->enabled == true) {
 			$this->Controller->request->params['isJson'] = (isset($this->Controller->request->params['url']['ext']) && $this->Controller->request->params['url']['ext'] === 'json');
 			if ($this->Controller->request->params['isJson']) {
 				Configure::write('debug', 0);
@@ -90,7 +101,7 @@ class RatingsComponent extends Component {
 				$this->modelName = $Controller->modelClass;
 			}
 			if (!$Controller->{$this->modelName}->Behaviors->attached('Ratable')) {
-				$Controller->{$this->modelName}->Behaviors->load('Ratings.Ratable', $settings);
+				$Controller->{$this->modelName}->Behaviors->load('Ratings.Ratable', $this->settings);
 			}
 			$Controller->helpers[] = 'Ratings.Rating';
 		}
@@ -110,7 +121,7 @@ class RatingsComponent extends Component {
 		}
 		if (!method_exists($Controller, 'rate')) {
 			if (isset($params['rate']) && isset($params['rating']) && $this->enabled == true) {
-				$this->rate($params['rate'], $params['rating'], $this->Auth->user('id'), !empty($params['redirect']));
+				$this->rate($params['rate'], $params['rating'], $Controller->Auth->user('id'), !empty($params['redirect']));
 			}
 		}
 	}

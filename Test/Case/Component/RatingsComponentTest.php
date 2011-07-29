@@ -132,13 +132,19 @@ class RatingsComponentTest extends CakeTestCase {
 
 		$this->Collection = $this->getMock('ComponentCollection');
 
-		$this->AuthComponent = $this->getMock('AuthComponent', array(), array($this->Collection));
-		//$this->AuthComponent = new MockAuthComponent();
+		if (!class_exists('MockAuthComponent')) {
+ 		$this->getMock('AuthComponent', array('user'), array($this->Collection), "MockAuthComponent");
+		}
+		if (!class_exists('MockSessionComponent')) {
+ 		$this->getMock('SessionComponent', array('destroy'), array($this->Collection), "MockSessionComponent");
+		}
+		
+		$this->AuthComponent = new MockAuthComponent($this->Collection);
 		$this->AuthComponent->enabled = true;
 		$this->Controller->Auth = $this->AuthComponent;
 
-		//$this->SessionComponent = new MockSessionComponent();
-		$this->SessionComponent = $this->getMock('AuthComponent', array(),  array($this->Collection));
+		$this->SessionComponent = new MockSessionComponent($this->Collection);
+		//$this->SessionComponent = $this->getMock('AuthComponent', array('user'),  array($this->Collection));
 		$this->SessionComponent->enabled = true;
 		$this->Controller->Session = $this->SessionComponent;
 	}
@@ -183,7 +189,6 @@ class RatingsComponentTest extends CakeTestCase {
 		$this->assertEqual($this->Controller->helpers, array(
 			'Session', 'Html', 'Form', 'Ratings.Rating'));
 		$this->assertTrue($this->Controller->Article->Behaviors->attached('Ratable'));
-
 		$this->assertTrue($this->Controller->Article->Behaviors->Ratable->settings['Article']['update']);
 		$this->assertEqual($this->Controller->Ratings->modelName, 'Article');
 	}
@@ -215,10 +220,11 @@ class RatingsComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testStartup() {
-		//$this->AuthComponent->setReturnValue('user', '1', array('id'));
-		$this->AuthComponent->expects($this->any())->method('user')
-			->with('1')
-			->will($this->returnValue(array('id')));
+		$this->AuthComponent
+			->expects($this->any())
+			->method('user')
+			->with('id')
+			->will($this->returnValue(array('1')));
 
 		$params = array(
 			'plugin' => null,
@@ -261,10 +267,11 @@ class RatingsComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testStartupAcceptPost() {
-		//$this->AuthComponent->setReturnValue('user', '1', array('id'));
-		$this->AuthComponent->expects($this->any())->method('user')
-			->with('1')
-			->will($this->returnValue(array('id')));
+		$this->AuthComponent
+			->expects($this->any())
+			->method('user')
+			->with('id')
+			->will($this->returnValue(1));
 
 		$params = array(
 			'plugin' => null,
@@ -323,8 +330,10 @@ class RatingsComponentTest extends CakeTestCase {
 	private function __initControllerAndRatings($params = array(), $doStartup = true) {
 		$_default = array('named' => array(), 'pass' => array());
 		$this->Controller->request->params = array_merge($_default, $params);
+		$this->Controller->Components->unload('Ratings');
 		$this->Controller->Components->init($this->Controller);
 		$this->Controller->Components->trigger('initialize', array(&$this->Controller));
+		$this->Controller->Auth = $this->AuthComponent;
 		$this->Controller->Ratings->startup($this->Controller);
 	}
 
