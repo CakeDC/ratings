@@ -163,7 +163,7 @@ class RatingsComponentTest extends CakeTestCase {
 		$this->__initControllerAndRatings(array(), false);
 		$this->assertEqual($this->Controller->helpers, array(
 			'Session', 'Html', 'Form', 'Ratings.Rating'));
-		$this->assertTrue($this->Controller->Article->Behaviors->attached('Ratable'), 'Ratable behavior should attached.');
+		$this->assertTrue($this->Controller->Article->Behaviors->attached('Ratable'));
 		$this->assertEqual($this->Controller->Ratings->modelName, 'Article');
 	}
 
@@ -182,8 +182,9 @@ class RatingsComponentTest extends CakeTestCase {
 		$this->__initControllerAndRatings(array(), false);
 		$this->assertEqual($this->Controller->helpers, array(
 			'Session', 'Html', 'Form', 'Ratings.Rating'));
-		$this->assertTrue($this->Controller->Article->Behaviors->attached('Ratable'), 'Ratable behavior should attached.');
-		$this->assertTrue($this->Controller->Article->Behaviors->Ratable->settings['Article']['update'], 'Ratable behavior should be updatable.');
+		$this->assertTrue($this->Controller->Article->Behaviors->attached('Ratable'));
+
+		$this->assertTrue($this->Controller->Article->Behaviors->Ratable->settings['Article']['update']);
 		$this->assertEqual($this->Controller->Ratings->modelName, 'Article');
 	}
 
@@ -193,10 +194,16 @@ class RatingsComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testInitializeWithParamsForComponent() {
-		$this->Controller->components = array('Ratings.Ratings' => array('actionNames' => array('show')), 'Session', 'Auth');
+		$this->Controller->components = array(
+			'Ratings.Ratings' => array(
+				'actionNames' => array('show')),
+			'Session',
+			'Auth');
+
 		$this->__initControllerAndRatings(array(), false);
 		$this->assertEqual($this->Controller->helpers, array(
 			'Session', 'Html', 'Form', 'Ratings.Rating'));
+
 		$this->assertTrue($this->Controller->Article->Behaviors->attached('Ratable'), 'Ratable behavior should attached.');
 		$this->assertEqual($this->Controller->Ratings->actionNames, array('show'));
 		$this->assertEqual($this->Controller->Ratings->modelName, 'Article');
@@ -315,9 +322,8 @@ class RatingsComponentTest extends CakeTestCase {
  */
 	private function __initControllerAndRatings($params = array(), $doStartup = true) {
 		$_default = array('named' => array(), 'pass' => array());
-		$this->Controller->params = array_merge($_default, $params);
+		$this->Controller->request->params = array_merge($_default, $params);
 		$this->Controller->Components->init($this->Controller);
-		//$this->Controller->Components->initialize($this->Controller);
 		$this->Controller->Components->trigger('initialize', array(&$this->Controller));
 		$this->Controller->Ratings->startup($this->Controller);
 	}
