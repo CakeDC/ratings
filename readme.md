@@ -45,7 +45,8 @@ Use the helper in your views to generate links mark a model record as favorite
 		'type' => 'radio',
 		'stars' => 5,
 		'value' => $item['rating'],
-		'createForm' => array('url' => array($this->passedArgs, 'rate' => $item['id'], 'redirect' => true))));
+		'createForm' => array('url' => array_merge(
+			$this->passedArgs, array('rate' => $item['id'], 'redirect' => true)))));
 	?>
 
 This generated form will generate form compatible with [jQuery UI Stars](http://plugins.jquery.com/project/Star_Rating_widget).
