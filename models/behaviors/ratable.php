@@ -40,6 +40,7 @@ class RatableBehavior extends ModelBehavior {
  * update			- boolean flag, that define permission to rerate(change previous rating)
  * modelValidate	- validate the model before save, default is false
  * modelCallbacks	- run model callbacks when the rating is saved to the model, default is false
+ * allowSelfVote	- allow voting for own content
  * allowedValues	- @todo
  *
  * @var array
@@ -57,6 +58,7 @@ class RatableBehavior extends ModelBehavior {
 		'update' => false,
 		'modelValidate' => false,
 		'modelCallbacks' => false,
+		'allowSelfVote' => false,
 		'allowedValues' => array());
 
 /**
@@ -436,7 +438,7 @@ class RatableBehavior extends ModelBehavior {
 		}
 
 		if ($options['userField'] !== false && $Model->getColumnType($options['userField'])) {
-			if ($record[$Model->alias][$options['userField']] == $userId) {
+			if (!$this->settings[$Model->alias]['allowSelfVote'] && $record[$Model->alias][$options['userField']] == $userId) {
 				$Model->data = $record;
 				throw new LogicException(__d('ratings', 'You can not vote on your own records', true));
 			}

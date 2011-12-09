@@ -77,6 +77,7 @@ The following options provide common defaults that, in most cases, need not be r
 * **field**          - name of the field that is updated with the calculated rating,
 * **fieldSummary**   - optional cache field that will store summary of all ratings that allow to implement quick rating calculation,
 * **fieldCounter**   - optional cache field that will store count of all ratings that allow to implement quick rating calculation.
+* **allowSelfVote**  - allow voting for own content.
 
 ### Behavior callbacks  ##
 
