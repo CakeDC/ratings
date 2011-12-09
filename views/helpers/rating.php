@@ -9,6 +9,8 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+App::import('Helper', 'Html');
+
 /**
  * CakePHP Ratings Plugin
  *
@@ -17,7 +19,7 @@
  * @package 	ratings
  * @subpackage 	ratings.views.helpers
  */
-class RatingHelper extends HtmlHelper {
+class RatingHelper extends AppHelper {
 
 /**
  * helpers variable
@@ -75,9 +77,9 @@ class RatingHelper extends HtmlHelper {
 				if ($options['redirect']) {
 					$url['redirect'] = 1;
 				}
-				$link = $this->link($i, $url, $urlHtmlAttributes);
+				$link = $this->Html->link($i, $url, $urlHtmlAttributes);
 			}
-			$stars .= $this->tag('li', $link, array('class' => 'star' . $i));
+			$stars .= $this->Html->tag('li', $link, array('class' => 'star' . $i));
 		}
 
 		if (in_array($options['type'], $this->allowedTypes)) {
@@ -86,7 +88,7 @@ class RatingHelper extends HtmlHelper {
 			$type = 'ul';
 		}
 
-		$stars = $this->tag($type, $stars, array('class' => $options['class'] . ' ' . 'rating-' . round($options['value'], 0)));
+		$stars = $this->Html->tag($type, $stars, array('class' => $options['class'] . ' ' . 'rating-' . round($options['value'], 0)));
 		return $stars;
 	}
 
