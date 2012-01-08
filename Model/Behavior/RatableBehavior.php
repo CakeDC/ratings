@@ -117,25 +117,36 @@ class RatableBehavior extends ModelBehavior {
 	public function saveRating(Model $Model, $foreignKey = null, $userId = null, $value = 0) {
 		$type = 'saveRating';
 		$this->beforeRateCallback($Model, compact('foreignKey', 'userId', 'value', 'update', 'type'));
-		if (!$this->isRatedBy($Model, $foreignKey, $userId) || $this->settings[$Model->alias]['update'] == true) {
+		$oldRating = $this->isRatedBy($Model, $foreignKey, $userId);
+		if (!$oldRating || $this->settings[$Model->alias]['update'] == true) {
 			$data['Rating']['foreign_key'] = $foreignKey;
 			$data['Rating']['model'] = $Model->alias;
 			$data['Rating']['user_id'] = $userId;
 			$data['Rating']['value'] = $value;
-			$oldRating = null;
-			$update = false;
 			if ($this->settings[$Model->alias]['update'] == true) {
 				$update = true;
-				$oldRating = $this->oldRating = $Model->Rating->find('first', array(
-					'recursive' => -1,
-					'conditions' => array(
+				$this->oldRating = $oldRating;
+				if (!empty($oldRating)) {
+					if (is_array($foreignKey)) {
+						$oldRating = $this->oldRating = $Model->Rating->find('first', array(
+							'recursive' => -1,
+							'conditions' => array(
+								'Rating.model' => $Model->alias,
+								'Rating.foreign_key' => $foreignKey,
+								'Rating.user_id' => $userId
+							)
+						));
+					}
+
+					$Model->Rating->deleteAll(array(
 						'Rating.model' => $Model->alias,
 						'Rating.foreign_key' => $foreignKey,
-						'Rating.user_id' => $userId)));
-				$Model->Rating->deleteAll(array(
-					'Rating.model' => $Model->alias,
-					'Rating.foreign_key' => $foreignKey,
-					'Rating.user_id' => $userId));
+						'Rating.user_id' => $userId
+					), false, false);
+				}
+			} else {
+				$oldRating = null;
+				$update = false;
 			}
 
 			$Model->Rating->create();
@@ -167,18 +178,24 @@ class RatableBehavior extends ModelBehavior {
 	public function removeRating(Model $Model, $foreignKey = null, $userId = null) {
 		$type = 'removeRating';
 		$this->beforeRateCallback($Model, compact('foreignKey', 'userId', 'update', 'type'));
-		if ($this->isRatedBy($Model, $foreignKey, $userId)) {
+		$oldRating = $this->isRatedBy($Model, $foreignKey, $userId);
+		if ($oldRating) {
 			$data['Rating']['foreign_key'] = $foreignKey;
 			$data['Rating']['model'] = $Model->alias;
 			$data['Rating']['user_id'] = $userId;
-			$oldRating = null;
 			$update = true;
-			$oldRating = $this->oldRating = $Model->Rating->find('first', array(
-				'recursive' => -1,
-				'conditions' => array(
-					'Rating.model' => $Model->alias,
-					'Rating.foreign_key' => $foreignKey,
-					'Rating.user_id' => $userId)));
+			$this->oldRating = $oldRating;
+			if (is_array($foreignKey)) {
+				$oldRating = $this->oldRating = $Model->Rating->find('first', array(
+					'recursive' => -1,
+					'conditions' => array(
+						'Rating.model' => $Model->alias,
+						'Rating.foreign_key' => $foreignKey,
+						'Rating.user_id' => $userId
+					)
+				));
+			}
+
 			$Model->Rating->deleteAll(array(
 				'Rating.model' => $Model->alias,
 				'Rating.foreign_key' => $foreignKey,
