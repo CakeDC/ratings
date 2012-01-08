@@ -466,7 +466,7 @@ class RatableBehavior extends ModelBehavior {
 			$Model->data = $record;
 			return true;
 		} else {
-			throw new Exception(__d('ratings', 'You have already rated this record'));
+			throw new RuntimeException(__d('ratings', 'You have already rated this record'));
 		}
 	}
 

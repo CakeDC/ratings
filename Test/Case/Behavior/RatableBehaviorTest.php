@@ -207,9 +207,9 @@ class RatableTest extends CakeTestCase {
 		$this->Article->Behaviors->load('Ratings.Ratable', array());
 		$userId = '2'; // floriank
 		$result = $this->Article->saveRating(1, $userId, 4);
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Article']['rating'], '2.5000');
-		
+
 		$userId = '1'; // phpnut
 		$this->assertFalse($this->Article->saveRating(1, $userId, 4));
 	}
@@ -223,7 +223,7 @@ class RatableTest extends CakeTestCase {
 		$this->Post->Behaviors->load('Ratings.Ratable', array());
 		$userId = '2'; // floriank
 		$result = $this->Post->saveRating(1, $userId, 4);
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Post']['rating'], '2.5000');
 		$this->assertEqual($result['Post']['rating_count'], 2);
 		$this->assertEqual($result['Post']['rating_sum'], 5);
@@ -243,7 +243,7 @@ class RatableTest extends CakeTestCase {
 		$userId = '1'; // phpnut
 		$result = $this->Post->saveRating(1, $userId, 3);
 
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Post']['rating'], '3');
 		$this->assertEqual($result['Post']['rating_count'], 1);
 		$this->assertEqual($result['Post']['rating_sum'], 3);
@@ -255,7 +255,7 @@ class RatableTest extends CakeTestCase {
 		$userId = '1'; // phpnut
 		$result = $this->Post->saveRating(3, $userId, 5);
 
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Post']['rating'], '5');
 		$this->assertEqual($result['Post']['rating_count'], 1);
 		$this->assertEqual($result['Post']['rating_sum'], 5);
@@ -270,13 +270,13 @@ class RatableTest extends CakeTestCase {
 		$this->Article->Behaviors->load('Ratings.Ratable', array());
 		$userId = '2'; // floriank
 		$result = $this->Article->saveRating(1, $userId, 4);
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Article']['rating'], '2.5000');
 
 		$result = $this->Article->removeRating(1, $userId);
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Article']['rating'], '1.0000');
-		
+
 		$userId = '1'; // phpnut
 		$this->assertFalse($this->Article->saveRating(1, $userId, 4));
 	}
@@ -290,13 +290,13 @@ class RatableTest extends CakeTestCase {
 		$this->Post->Behaviors->load('Ratings.Ratable', array());
 		$userId = '2'; // floriank
 		$result = $this->Post->saveRating(1, $userId, 4);
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Post']['rating'], '2.5000');
 		$this->assertEqual($result['Post']['rating_count'], 2);
 		$this->assertEqual($result['Post']['rating_sum'], 5);
 
 		$result = $this->Post->removeRating(1, $userId);
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Post']['rating'], '1.0000');
 		$this->assertEqual($result['Post']['rating_count'], 1);
 		$this->assertEqual($result['Post']['rating_sum'], 1);
@@ -316,14 +316,14 @@ class RatableTest extends CakeTestCase {
 		$userId = '1'; // phpnut
 		$result = $this->Post->saveRating(1, $userId, 3);
 
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Post']['rating'], '3');
 		$this->assertEqual($result['Post']['rating_count'], 1);
 		$this->assertEqual($result['Post']['rating_sum'], 3);
 
 		$result = $this->Post->removeRating(1, $userId);
 
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Post']['rating'], '0');
 		$this->assertEqual($result['Post']['rating_count'], 0);
 		$this->assertEqual($result['Post']['rating_sum'], 0);
@@ -335,13 +335,13 @@ class RatableTest extends CakeTestCase {
 		$userId = '1'; // phpnut
 		$result = $this->Post->saveRating(3, $userId, 5);
 
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Post']['rating'], '5');
 		$this->assertEqual($result['Post']['rating_count'], 1);
 		$this->assertEqual($result['Post']['rating_sum'], 5);
 
 		$result = $this->Post->removeRating(3, $userId);
-		$this->assertType('array', $result);
+		$this->assertInternalType('array', $result);
 		$this->assertEqual($result['Post']['rating'], '0');
 		$this->assertEqual($result['Post']['rating_count'], 0);
 		$this->assertEqual($result['Post']['rating_sum'], 0);
@@ -383,7 +383,7 @@ class RatableTest extends CakeTestCase {
 		$result = $this->Article->rate($foreignKey, $userId, 'up');
 		$this->assertTrue($result);
 
-		$this->expectException('Exception');
+		$this->expectException('RuntimeException');
 		$this->Article->rate($foreignKey, $userId, 'up');
 
 		$this->expectException('OutOfBoundsException');
