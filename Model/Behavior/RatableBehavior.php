@@ -182,7 +182,8 @@ class RatableBehavior extends ModelBehavior {
 			$Model->Rating->deleteAll(array(
 				'Rating.model' => $Model->alias,
 				'Rating.foreign_key' => $foreignKey,
-				'Rating.user_id' => $userId));
+				'Rating.user_id' => $userId
+			), false, false);
 
 			$fieldCounterType = $Model->getColumnType($this->settings[$Model->alias]['fieldCounter']);
 			$fieldSummaryType = $Model->getColumnType($this->settings[$Model->alias]['fieldSummary']);
