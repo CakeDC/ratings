@@ -347,20 +347,27 @@ class RatableBehavior extends ModelBehavior {
 		}
 
 		$Model->newRating = $result[0][0]['rating'];
-		if ($saveToField || is_string($saveToField)) {
-			if (is_string($saveToField)) {
-				$data[$Model->alias][$saveToField] = $result[0][0]['rating'];
-			} else {
-				$data[$Model->alias][$this->settings[$Model->alias]['field']] = $result[0][0]['rating'];
-			}
-			$data[$Model->alias][$Model->primaryKey] = $foreignKey;
-
-			return $Model->save($data, array(
-				'validate' => $this->settings[$Model->alias]['modelValidate'],
-				'callbacks' => $this->settings[$Model->alias]['modelCallbacks']));
+		if (!$saveToField) {
+			return $result[0][0]['rating'];
 		}
 
-		return $result[0][0]['rating'];
+		if (!is_string($saveToField)) {
+			$saveToField = $this->settings[$Model->alias]['field'];
+		}
+
+		if (!$Model->hasField($saveToField)) {
+			return $result[0][0]['rating'];
+		}
+
+		$data = array($Model->alias => array(
+			$Model->primaryKey => $foreignKey,
+			$saveToField => $result[0][0]['rating'],
+		));
+
+		return $Model->save($data, array(
+			'validate' => $this->settings[$Model->alias]['modelValidate'],
+			'callbacks' => $this->settings[$Model->alias]['modelCallbacks']
+		));
 	}
 
 /**
