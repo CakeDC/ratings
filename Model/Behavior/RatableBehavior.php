@@ -369,7 +369,7 @@ class RatableBehavior extends ModelBehavior {
  * @param AppModel $Model
  * @param mixed Single foreign key as uuid or int or array of foreign keys
  * @param mixed Boolean true or false if a single foreign key was supplied else an array of already voted keys
- * @return boolean true if already rated
+ * @return mixed Array of related foreignKeys when querying for multiple entries, entry or false otherwise
  */
 	public function isRatedBy(Model $Model, $foreignKey = null, $userId = null) {
 		$findMethod = 'first';
@@ -393,7 +393,8 @@ class RatableBehavior extends ModelBehavior {
 		if (empty($entry)) {
 			return false;
 		}
-		return true;
+
+		return $entry;
 	}
 
 /**

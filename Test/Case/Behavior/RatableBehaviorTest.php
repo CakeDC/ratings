@@ -356,8 +356,16 @@ class RatableTest extends CakeTestCase {
 		$userId = '1'; // phpnut
 		$foreignKey = 1;
 		$result = $this->Article->isRatedBy($foreignKey, $userId);
-		$this->assertTrue($result);
-		
+		$this->assertEqual(array('Rating' => array(
+			'id' => '1',
+			'user_id' => '1',
+			'foreign_key' => '1',
+			'model' => 'Article',
+			'value' => '1.0000',
+			'created' => '2009-01-01 12:12:12',
+			'modified' => '2009-01-01 12:12:12',
+		)), $result);
+
 		$userId = '1'; // phpnut
 		$foreignKey = array(1, 2);
 		$result = $this->Article->isRatedBy($foreignKey, $userId);
