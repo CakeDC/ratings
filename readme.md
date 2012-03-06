@@ -15,7 +15,9 @@ Place the ratings folder into any of your plugin directories for your app (for e
 
 Create database tables using either the schema shell or the migrations plugin:
 
-	cake migration run all -plugin ratings
+	cake schema create --plugin Ratings
+
+	cake migration run all --plugin Ratings
 
 Attach the Ratable behavior to your models via the $actsAs variable or dynamically using the BehaviorsCollection object methods:
 
