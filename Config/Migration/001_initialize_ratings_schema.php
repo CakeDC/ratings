@@ -22,7 +22,7 @@
  * @subpackage	config.migrations
  */
 
-class M49q5117c54j8q4k9dc168115028eda421 extends CakeMigration {
+class InitializeRatingsSchema extends CakeMigration {
 
 /**
  * Migration description
