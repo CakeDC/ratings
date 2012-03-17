@@ -23,6 +23,6 @@
  */
 
 $map = array(
-	1 => array('001_initialize_ratings_schema' => 'M49q5117c54j8q4k9dc168115028eda421')
+	1 => array('001_initialize_ratings_schema' => 'InitializeRatingsSchema')
 );
 ?>
