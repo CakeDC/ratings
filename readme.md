@@ -1,7 +1,5 @@
 # Rating plugin for CakePHP #
 
-Version 1.1
-
 The ratings plugin will allow you by simply adding the ratings component to your controller to rate anyting. The component will auto load a helper and behavior.
 
 The core part of this plugin is the ratable behavior that is attached to your models.
@@ -17,7 +15,9 @@ Place the ratings folder into any of your plugin directories for your app (for e
 
 Create database tables using either the schema shell or the migrations plugin:
 
-	cake migration run all -plugin ratings
+	cake schema create --plugin Ratings
+
+	cake migration run all --plugin Ratings
 
 Attach the Ratable behavior to your models via the $actsAs variable or dynamically using the BehaviorsCollection object methods:
 
@@ -45,8 +45,7 @@ Use the helper in your views to generate links mark a model record as favorite
 		'type' => 'radio',
 		'stars' => 5,
 		'value' => $item['rating'],
-		'createForm' => array('url' => array_merge(
-			$this->passedArgs, array('rate' => $item['id'], 'redirect' => true)))));
+		'createForm' => array('url' => array($this->passedArgs, 'rate' => $item['id'], 'redirect' => true))));
 	?>
 
 This generated form will generate form compatible with [jQuery UI Stars](http://plugins.jquery.com/project/Star_Rating_widget).
@@ -77,7 +76,6 @@ The following options provide common defaults that, in most cases, need not be r
 * **field**          - name of the field that is updated with the calculated rating,
 * **fieldSummary**   - optional cache field that will store summary of all ratings that allow to implement quick rating calculation,
 * **fieldCounter**   - optional cache field that will store count of all ratings that allow to implement quick rating calculation.
-* **allowSelfVote**  - allow voting for own content.
 
 ### Behavior callbacks  ##
 
@@ -170,7 +168,7 @@ Redistributions of files must retain the above copyright notice.
 
 ## Copyright ###
 
-Copyright 2009-2011<br/>
+Copyright 2009-2010<br/>
 [Cake Development Corporation](http://cakedc.com)<br/>
 1785 E. Sahara Avenue, Suite 490-423<br/>
 Las Vegas, Nevada 89104<br/>

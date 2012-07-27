@@ -22,7 +22,7 @@
  * @subpackage	config.schema
  */
 
-class AppSchema extends CakeSchema {
+class RatingsSchema extends CakeSchema {
 
 /**
  * Schema name
@@ -30,7 +30,7 @@ class AppSchema extends CakeSchema {
  * @var string
  * @access public
  */
-	public $name = 'App';
+	public $name = 'Ratings';
 
 /**
  * Before callback

@@ -17,6 +17,8 @@
  * @package 	ratings
  * @subpackage 	ratings.tests.cases.models
  */
+
+App::uses('Model', 'Model');
 class RatingTestCase extends CakeTestCase {
 
 /**

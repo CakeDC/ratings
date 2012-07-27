@@ -20,9 +20,8 @@
  
 if (!class_exists('User')) {
 	class User extends Model {
-
 	}
-}  
+}
 class UserFixture extends CakeTestFixture {
 
 /**
@@ -54,7 +53,7 @@ class UserFixture extends CakeTestFixture {
 		'slug' => array('type'=>'string', 'null' => false),
 		'username' => array('type'=>'string', 'null' => false),
 		'email' => array('type'=>'string', 'null' => true, 'default' => NULL, 'length' => 255),
-		'email_authenticated' => array('type'=>'boolean', 'null' => false, 'default' => '0'),
+		'email_verified' => array('type'=>'boolean', 'null' => false, 'default' => '0'),
 		'email_token' => array('type'=>'string', 'null' => true, 'default' => NULL, 'length' => 255),
 		'email_token_expires' => array('type'=>'datetime', 'null' => true, 'default' => NULL),
 		'passwd' => array('type'=>'string', 'null' => true, 'default' => NULL, 'length' => 128),
@@ -86,7 +85,7 @@ class UserFixture extends CakeTestFixture {
 			'slug' => 'phpnut',
 			'username'  => 'phpnut',
 			'email' => 'larry.masters@cakedc.com',
-			'email_authenticated' => 1,
+			'email_verified' => 1,
 			'email_token' => 'testtoken',
 			'email_token_expires' => '2008-03-25 02:45:46',
 			'passwd'  => 'test', // test
@@ -107,7 +106,7 @@ class UserFixture extends CakeTestFixture {
 			'slug' => 'floriank',
 			'username'  => 'floriank',
 			'email' => 'florian.kraemer@cakedc.com',
-			'email_authenticated' => '1',
+			'email_verified' => '1',
 			'email_token' => '',
 			'email_token_expires' => '2008-03-25 02:45:46',
 			'passwd'  => 'secretkey', // secretkey
@@ -128,7 +127,7 @@ class UserFixture extends CakeTestFixture {
 			'slug' => 'user1',
 			'username'  => 'user1',
 			'email' => 'testuser1@testuser.com',
-			'email_authenticated' => 0,
+			'email_verified' => 0,
 			'email_token' => 'testtoken2',
 			'email_token_expires' => '2008-03-28 02:45:46',
 			'passwd'  => 'newpass', // newpass
@@ -149,7 +148,7 @@ class UserFixture extends CakeTestFixture {
 			'slug' => 'oistest',
 			'username'  => 'oidtest',
 			'email' => 'oidtest@testuser.com',
-			'email_authenticated' => 0,
+			'email_verified' => 0,
 			'email_token' => 'testtoken2',
 			'email_token_expires' => '2008-03-28 02:45:46',
 			'passwd'  => 'newpass', // newpass
@@ -170,7 +169,7 @@ class UserFixture extends CakeTestFixture {
  */
 	public function __construct() {
 		parent::__construct();
-		App::import('Core', 'Security');
+		App::uses('Security', 'Utility');
 		foreach ($this->records as &$record) {
 			$record['passwd'] = Security::hash($record['passwd'], null, true);
 		}
