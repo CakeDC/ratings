@@ -90,7 +90,6 @@ class RatingsComponent extends Component {
  * @param object Controller object
  */
 	public function initialize(Controller $Controller) {
-	//public function initialize(Controller $Controller, $settings = array()) {
 		$this->Controller = $Controller;
  		if ($this->enabled == true) {
 			$this->Controller->request->params['isJson'] = (isset($this->Controller->request->params['url']['ext']) && $this->Controller->request->params['url']['ext'] === 'json');
@@ -206,4 +205,5 @@ class RatingsComponent extends Component {
 
 		$this->Controller->redirect($url, $code, $exit);
 	}
+	
 }
