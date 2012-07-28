@@ -132,7 +132,7 @@ class RatingsComponentTest extends CakeTestCase {
  *
  * @return void
  */
-	function startTest() {
+	public function startTest() {
 		$this->Controller = new ArticlesTestController();
 		$this->Controller->modelClass = 'Article';
 		$this->Controller->constructClasses();
@@ -161,7 +161,7 @@ class RatingsComponentTest extends CakeTestCase {
  *
  * @return void
  */
-	function endTest() {
+	public function endTest() {
 		$this->Controller->Session->destroy();
 		unset($this->Controller);
 		ClassRegistry::flush();

@@ -35,8 +35,8 @@ class RatingHelperTest extends CakeTestCase {
  * @see cake/tests/lib/CakeTestCase#startTest($method)
  */
 	public function startTest() {
-		$this->Controller =& new Controller();
-		$this->View =& new View($this->Controller);
+		$this->Controller = new Controller();
+		$this->View = new View($this->Controller);
 		$this->Rating = new RatingHelper($this->View);
 		$this->Rating->Form = new FormHelper($this->View);
 		$this->Rating->Html = new HtmlHelper($this->View);
