@@ -111,7 +111,7 @@ class RatingHelper extends AppHelper {
 		$percentage = $this->percentage($value, $total);
 
 		if (!empty($options['element'])) {
-			$View =& ClassRegistry:: getObject('view');
+			$View = ClassRegistry:: getObject('view');
 			return $View->element($options['element'], array(
 				'value' => $value,
 				'percentage' => $percentage,

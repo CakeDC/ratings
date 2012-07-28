@@ -20,13 +20,6 @@
 class Rating extends RatingsAppModel {
 
 /**
- * Name
- *
- * @var string $name
- */
-	public $name = 'Rating';
-
-/**
  * Validation rules
  *
  * @var array $validate
