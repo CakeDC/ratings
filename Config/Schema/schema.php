@@ -24,13 +24,6 @@
 
 class RatingsSchema extends CakeSchema {
 
-/**
- * Schema name
- *
- * @var string
- * @access public
- */
-	public $name = 'Ratings';
 
 /**
  * Before callback
@@ -71,4 +64,3 @@ class RatingsSchema extends CakeSchema {
 		)
 	);
 }
-?>

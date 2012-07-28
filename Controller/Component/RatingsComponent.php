@@ -70,7 +70,7 @@ class RatingsComponent extends Component {
 	public $parameters = array('rate' => true, 'rating'=> true, 'redirect' => true);
 
 /**
- * Constructor. 
+ * Constructor.
  *
  * @throws CakeException when Acl.classname could not be loaded.
  */
@@ -83,14 +83,13 @@ class RatingsComponent extends Component {
 				}
 			}
 		}
-	} 	
+	}
 /**
  * Callback
  *
  * @param object Controller object
  */
-	public function initialize(&$Controller) {
-	//public function initialize(&$Controller, $settings = array()) {
+	public function initialize(Controller $Controller) {
 		$this->Controller = $Controller;
  		if ($this->enabled == true) {
 			$this->Controller->request->params['isJson'] = (isset($this->Controller->request->params['url']['ext']) && $this->Controller->request->params['url']['ext'] === 'json');
@@ -112,7 +111,7 @@ class RatingsComponent extends Component {
  *
  * @param object Controller object
  */
-	public function startup(&$Controller) {
+	public function startup(Controller $Controller) {
 		$message = '';
 		$rating = null;
 		$params = $Controller->request->params['named'];
@@ -200,10 +199,11 @@ class RatingsComponent extends Component {
 		if (!empty($this->Controller->request->params['isAjax']) || !empty($this->Controller->request->params['isJson'])) {
 			$this->Controller->setAction('rated', $this->Controller->request->params['named']['rate']);
 			return $this->Controller->render('rated');
-		} else if (isset($this->Controller->viewVars['status']) && isset($this->Controller->viewVars['message'])) {
+		} elseif (isset($this->Controller->viewVars['status']) && isset($this->Controller->viewVars['message'])) {
 			$this->Controller->Session->setFlash($this->Controller->viewVars['message'], 'default', array(), $this->Controller->viewVars['status']);
 		}
 
 		$this->Controller->redirect($url, $code, $exit);
 	}
+	
 }

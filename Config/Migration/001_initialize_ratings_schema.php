@@ -68,7 +68,7 @@ class InitializeRatingsSchema extends CakeMigration {
  * @return boolean Should process continue
  * @access public
  */
-	function before($direction) {
+	public function before($direction) {
 		return true;
 	}
 
@@ -79,7 +79,7 @@ class InitializeRatingsSchema extends CakeMigration {
  * @return boolean Should process continue
  * @access public
  */
-	function after($direction) {
+	public function after($direction) {
 		return true;
 	}
 
