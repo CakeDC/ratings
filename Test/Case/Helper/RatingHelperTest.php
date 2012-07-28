@@ -8,10 +8,10 @@
  * @copyright Copyright 2010, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::import('Helper', array('Html', 'Ratings.Rating', 'Form'));
+App::uses('Html', 'View/Helper');
+App::uses('Form', 'View/Helper');
+App::uses('Ratings.Rating', 'View/Helper');
 App::uses('Controller', 'Controller');
-
 
 /**
  * CakePHP Ratings Plugin
@@ -21,7 +21,7 @@ App::uses('Controller', 'Controller');
  * @package 	ratings
  * @subpackage 	ratings.tests.cases.helpers
  */
-class RatingHelperTestCase extends CakeTestCase {
+class RatingHelperTest extends CakeTestCase {
 
 /**
  * Helper being tested
