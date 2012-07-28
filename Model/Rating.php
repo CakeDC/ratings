@@ -8,6 +8,7 @@
  * @copyright Copyright 2010, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('RatingsAppModel', 'Ratings.Model');
 
 /**
  * CakePHP Ratings Plugin
