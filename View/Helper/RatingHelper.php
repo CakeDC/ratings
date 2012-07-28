@@ -60,7 +60,7 @@ class RatingHelper extends AppHelper {
 	public function display($options = array(), $urlHtmlAttributes = array()) {
 		$options = array_merge($this->defaults, $options);
 		if (empty($options['item'])) {
-			throw new Exception(__d('ratings', 'You must set the id of the item you want to rate.'), E_USER_NOTICE);
+			throw new CakeException(__d('ratings', 'You must set the id of the item you want to rate.'), E_USER_NOTICE);
 		}
 
 		if ($options['type'] == 'radio') {

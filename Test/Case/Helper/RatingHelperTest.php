@@ -76,7 +76,7 @@ class RatingHelperTestCase extends CakeTestCase {
  * Test display method exception
  *
  * @return void
- * @expectedException Exception
+ * @expectedException CakeException
  */
 	public function testDisplayException() {
 		$this->Rating->display();
@@ -131,7 +131,7 @@ class RatingHelperTestCase extends CakeTestCase {
 			'stars' => 2);
 		$result = $this->Rating->display($options);
 
-		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1"  value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2"  value="2" /><label for="Rating2">2</label></div>';
+		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1" value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2" value="2" /><label for="Rating2">2</label></div>';
 		$this->assertEqual($result, $expected);
 
 		$options = array(
@@ -141,7 +141,7 @@ class RatingHelperTestCase extends CakeTestCase {
 			'stars' => 2);
 		$result = $this->Rating->display($options);
 
-		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1"  value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2"  value="2" /><label for="Rating2">2</label></div>';
+		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1" value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2" value="2" /><label for="Rating2">2</label></div>';
 		$this->assertEqual($result, $expected);
 	}
 

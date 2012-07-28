@@ -53,6 +53,13 @@ class ArticlesTestController extends Controller {
 	public $uses = array('Article');
 
 /**
+ * Helpers used
+ * 
+ * @var array 
+ */
+	public $helpers = array('Session', 'Html', 'Form');
+
+/**
  * Components used
  *
  * @var array
