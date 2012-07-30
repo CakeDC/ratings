@@ -1,6 +1,6 @@
 # Rating plugin for CakePHP #
 
-Version 1.1
+Version 1.1 for cake 1.3
 
 The ratings plugin will allow you by simply adding the ratings component to your controller to rate anyting. The component will auto load a helper and behavior.
 
