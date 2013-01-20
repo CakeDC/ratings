@@ -177,7 +177,7 @@ class RatingHelper extends AppHelper {
 			}
 			$result .= $this->Form->end() . "\n";
 			if ($flush) {
-				$this->Js->writeBuffer();
+			$result .= $this->Js->writeBuffer();
 			}
 		}
 		return $result;
