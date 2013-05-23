@@ -357,7 +357,10 @@ class RatableBehavior extends ModelBehavior {
 			'conditions' => array(
 				'Rating.foreign_key' => $foreignKey,
 				'Rating.model' => $Model->alias
-			)
+			),
+			'group' => array(
+				$Model->alias . '.id',
+			),
 		));
 
 		if (empty($result[0][0]['rating'])) {
