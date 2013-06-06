@@ -89,7 +89,7 @@ class RatingsComponent extends Component {
  *
  * @param object Controller object
  */
-	public function initialize(&$Controller) {
+	public function initialize(Controller $Controller) {
 	//public function initialize(&$Controller, $settings = array()) {
 		$this->Controller = $Controller;
  		if ($this->enabled == true) {
@@ -112,7 +112,7 @@ class RatingsComponent extends Component {
  *
  * @param object Controller object
  */
-	public function startup(&$Controller) {
+	public function startup(Controller $Controller) {
 		$message = '';
 		$rating = null;
 		$params = $Controller->request->params['named'];
