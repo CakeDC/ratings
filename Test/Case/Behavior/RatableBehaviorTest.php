@@ -44,7 +44,8 @@ class RatableTest extends CakeTestCase {
  *
  * @return void
  */
-	public function startTest() {
+	public function setUp() {
+		parent::setUp();
 		$this->Article = ClassRegistry::init('Article');
 		$this->Post = ClassRegistry::init('Post');
 		$this->Article->alias = 'Article';
@@ -57,7 +58,8 @@ class RatableTest extends CakeTestCase {
  *
  * @return void
  */
-	public function endTest() {
+	public function tearDown() {
+		parent::tearDown();
 		unset($this->Article);
 		unset($this->Post);
 		ClassRegistry::flush();
