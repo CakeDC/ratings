@@ -10,7 +10,7 @@ env:
 
 before_script:
   - git clone --depth 1 --branch $CAKE_VERSION git://github.com/cakephp/cakephp ../cakephp && cd ../cakephp
-  - cp -R ../search plugins/Search
+  - cp -R ../ratings plugins/Ratings
   - sh -c "mysql -e 'CREATE DATABASE cakephp_test;'"
   - echo "<?php
     class DATABASE_CONFIG {
