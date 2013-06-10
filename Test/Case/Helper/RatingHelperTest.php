@@ -34,9 +34,10 @@ class RatingHelperTestCase extends CakeTestCase {
  * (non-PHPdoc)
  * @see cake/tests/lib/CakeTestCase#startTest($method)
  */
-	public function startTest() {
-		$this->Controller =& new Controller();
-		$this->View =& new View($this->Controller);
+	public function setUp() {
+		parent::setUp();
+		$this->Controller = new Controller();
+		$this->View = new View($this->Controller);
 		$this->Rating = new RatingHelper($this->View);
 		$this->Rating->Form = new FormHelper($this->View);
 		$this->Rating->Html = new HtmlHelper($this->View);
@@ -130,8 +131,7 @@ class RatingHelperTestCase extends CakeTestCase {
 			'url' => array('controller' => 'articles', 'action' => 'rate'),
 			'stars' => 2);
 		$result = $this->Rating->display($options);
-
-		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1"  value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2"  value="2" /><label for="Rating2">2</label></div>';
+		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1" value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2" value="2" /><label for="Rating2">2</label></div>';
 		$this->assertEqual($result, $expected);
 
 		$options = array(
@@ -141,7 +141,7 @@ class RatingHelperTestCase extends CakeTestCase {
 			'stars' => 2);
 		$result = $this->Rating->display($options);
 
-		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1"  value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2"  value="2" /><label for="Rating2">2</label></div>';
+		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1" value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2" value="2" /><label for="Rating2">2</label></div>';
 		$this->assertEqual($result, $expected);
 	}
 
@@ -149,7 +149,8 @@ class RatingHelperTestCase extends CakeTestCase {
  * (non-PHPdoc)
  * @see cake/tests/lib/CakeTestCase#endTest($method)
  */
-	public function endTest() {
+	public function tearDown() {
+		parent::tearDown();
 		unset($this->Rating);
 		ClassRegistry::flush();
 	}
