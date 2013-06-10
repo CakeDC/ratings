@@ -58,6 +58,7 @@ class ArticlesTestController extends Controller {
  * @var array
  */
 	public $components = array('Ratings.Ratings', 'Session', 'Auth');
+	public $helpers = array('Session', 'Html', 'Form');
 
 /**
  * test method
@@ -120,33 +121,35 @@ class RatingsComponentTest extends CakeTestCase {
 		'plugin.ratings.article',
 		'plugin.ratings.user');
 
+		function setUp() {
+		if (!session_id() && defined('CAKEPHP_SHELL')) {
+			session_id('testsuite');
+		}
+		
+		}
+		
 /**
  * startTest method
  *
  * @return void
  */
-	function startTest() {
+	function startTest() {	
+		if (!session_id() && defined('CAKEPHP_SHELL')) {
+			session_id('testsuite');
+		}
 		$this->Controller = new ArticlesTestController();
 		$this->Controller->modelClass = 'Article';
 		$this->Controller->constructClasses();
 
-		$this->Collection = $this->getMock('ComponentCollection');
+		$this->Collection = $this->Controller->Components;
 
 		if (!class_exists('MockAuthComponent')) {
  		$this->getMock('AuthComponent', array('user'), array($this->Collection), "MockAuthComponent");
-		}
-		if (!class_exists('MockSessionComponent')) {
- 		$this->getMock('SessionComponent', array('destroy'), array($this->Collection), "MockSessionComponent");
 		}
 		
 		$this->AuthComponent = new MockAuthComponent($this->Collection);
 		$this->AuthComponent->enabled = true;
 		$this->Controller->Auth = $this->AuthComponent;
-
-		$this->SessionComponent = new MockSessionComponent($this->Collection);
-		//$this->SessionComponent = $this->getMock('AuthComponent', array('user'),  array($this->Collection));
-		$this->SessionComponent->enabled = true;
-		$this->Controller->Session = $this->SessionComponent;
 	}
 
 /**
@@ -155,7 +158,6 @@ class RatingsComponentTest extends CakeTestCase {
  * @return void
  */
 	function endTest() {
-		$this->Controller->Session->destroy();
 		unset($this->Controller);
 		ClassRegistry::flush();
 	}
@@ -239,23 +241,14 @@ class RatingsComponentTest extends CakeTestCase {
 			'plugin' => null,
 			'controller' => 'articles',
 			'action' => 'test');
-/*
-		$this->Controller->Session->expectCallCount('setFlash', 3);
 
-		$this->Controller->Session->expectAt(0, 'setFlash', array('Your rate was successfull.', 'default', array(), 'success'));
-		$this->Controller->Session->expectAt(1, 'setFlash', array('You have already rated.', 'default', array(), 'error'));
-		$this->Controller->Session->expectAt(2, 'setFlash', array('Invalid rate.', 'default', array(), 'error'));
-*/
-//		$this->Controller->Session->write('Message', null);
 		$this->__initControllerAndRatings($params);
 		$this->assertEqual($this->Controller->redirect, $expectedRedirect);
 
-//		$this->Controller->Session->write('Message', null);
 		$params['named']['rate'] = '1';
 		$this->__initControllerAndRatings($params);
 		$this->assertEqual($this->Controller->redirect, $expectedRedirect);
 
-//		$this->Controller->Session->write('Message', null);
 		$params['named']['rate'] = 'invalid-record!';
 		$this->__initControllerAndRatings($params);
 		$this->assertEqual($this->Controller->redirect, $expectedRedirect);
@@ -287,9 +280,6 @@ class RatingsComponentTest extends CakeTestCase {
 			'action' => 'test');
 		$this->Controller->data = array('Article' => array('rating' => 2));
 	
-		//$this->Controller->Session->write('Message', null);
-
-		$this->Controller->Session->expects($this->any())->method('setFlash');
 		$this->__initControllerAndRatings($params);
 		$this->assertEqual($this->Controller->redirect, $expectedRedirect);
 	}
