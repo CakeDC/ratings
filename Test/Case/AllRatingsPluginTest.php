@@ -1,6 +1,6 @@
 <?php
 /**
- * Group test - Search
+ * Group test - Ratings
  */
 class AllRatingsPluginTest extends PHPUnit_Framework_TestSuite {
 
