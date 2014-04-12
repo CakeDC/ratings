@@ -67,7 +67,11 @@ class RatingsComponent extends Component {
  *
  * @var array $parameters
  */
-	public $parameters = array('rate' => true, 'rating'=> true, 'redirect' => true);
+	public $parameters = array(
+		'rate' => true,
+		'rating' => true,
+		'redirect' => true
+	);
 
 /**
  * Constructor. 
@@ -83,14 +87,15 @@ class RatingsComponent extends Component {
 				}
 			}
 		}
-	} 	
+	}
+
 /**
  * Callback
  *
- * @param object Controller object
+ * @param Controller $Controller
+ * @return void
  */
 	public function initialize(Controller $Controller) {
-	//public function initialize(&$Controller, $settings = array()) {
 		$this->Controller = $Controller;
  		if ($this->enabled == true) {
 			$this->Controller->request->params['isJson'] = (isset($this->Controller->request->params['url']['ext']) && $this->Controller->request->params['url']['ext'] === 'json');
@@ -110,7 +115,7 @@ class RatingsComponent extends Component {
 /**
  * Callback
  *
- * @param object Controller object
+ * @param Controller $Controller
  */
 	public function startup(Controller $Controller) {
 		$message = '';
@@ -168,7 +173,7 @@ class RatingsComponent extends Component {
  * @return array
  */
 	public function buildUrl() {
-		$params = array('plugin' => $this->Controller->request->params['plugin'], 'controller' => $this->Controller->request->params['controller'],  'action' => $this->Controller->request->params['action']);
+		$params = array('plugin' => $this->Controller->request->params['plugin'], 'controller' => $this->Controller->request->params['controller'], 'action' => $this->Controller->request->params['action']);
 		$params = array_merge($params, $this->Controller->request->params['pass']);
 		foreach ($this->Controller->request->params['named'] as $name => $value) {
 			if (!isset($this->parameters[$name])) {

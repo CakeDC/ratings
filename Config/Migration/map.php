@@ -25,4 +25,3 @@
 $map = array(
 	1 => array('001_initialize_ratings_schema' => 'InitializeRatingsSchema')
 );
-?>
