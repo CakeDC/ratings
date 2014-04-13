@@ -42,7 +42,6 @@ class RatingHelperTestCase extends CakeTestCase {
 		$this->Rating->Form = new FormHelper($this->View);
 		$this->Rating->Html = new HtmlHelper($this->View);
 		$this->Rating->Form->Html = $this->Rating->Html;
-		//$this->Rating->Form->params['action'] = 'add';
 
 		ClassRegistry::addObject('view', $this->View);
 	}
@@ -53,9 +52,9 @@ class RatingHelperTestCase extends CakeTestCase {
  * @return void
  */
 	public function testPercentage() {
-		$this->assertEqual($this->Rating->percentage(2, 5), '40');
-		$this->assertEqual($this->Rating->percentage(0, 0), '0');
-		$this->assertEqual($this->Rating->percentage(6, 6), '100');
+		$this->assertEquals($this->Rating->percentage(2, 5), '40');
+		$this->assertEquals($this->Rating->percentage(0, 0), '0');
+		$this->assertEquals($this->Rating->percentage(6, 6), '100');
 	}
 
 /**
@@ -66,11 +65,11 @@ class RatingHelperTestCase extends CakeTestCase {
 	public function testBar() {
 		$result = $this->Rating->bar(1, 2);
 		$expected = '<div class="barRating"><div style="width: 50%" class="inner"><span>1</span></div></div>';
-		$this->assertEqual($expected, $result);
+		$this->assertEquals($expected, $result);
 
 		$result = $this->Rating->bar(1, 4, array('innerHtml' => '<span>%percentage%</span>'));
 		$expected = '<div class="barRating"><div style="width: 25%" class="inner"><span>25</span></div></div>';
-		$this->assertEqual($expected, $result);
+		$this->assertEquals($expected, $result);
 	}
 
 /**
@@ -102,7 +101,7 @@ class RatingHelperTestCase extends CakeTestCase {
 			'<li class="star4"><a href="/articles/rate/rate:42/rating:4/redirect:1">4</a></li>'.
 			'<li class="star5"><a href="/articles/rate/rate:42/rating:5/redirect:1">5</a></li>'.
 		'</ul>';
-		$this->assertEqual($result, $expected);
+		$this->assertEquals($result, $expected);
 
 		$options = array_merge($options, array(
 			'type' => 'ol',
@@ -114,7 +113,7 @@ class RatingHelperTestCase extends CakeTestCase {
 		'<ol class="rating rating-2">'.
 			'<li class="star1"><a href="/articles/rate/rate:42/rating:1">1</a></li>'.
 		'</ol>';
-		$this->assertEqual($result, $expected);
+		$this->assertEquals($result, $expected);
 
 		$options = array_merge($options, array(
 			'type' => 'div'));
@@ -123,16 +122,16 @@ class RatingHelperTestCase extends CakeTestCase {
 		'<ul class="rating rating-2">'.
 			'<li class="star1"><a href="/articles/rate/rate:42/rating:1">1</a></li>'.
 		'</ul>';
-		$this->assertEqual($result, $expected);
-		
+		$this->assertEquals($result, $expected);
+
 		$options = array(
 			'item' => '42',
 			'type' => 'radio',
 			'url' => array('controller' => 'articles', 'action' => 'rate'),
 			'stars' => 2);
 		$result = $this->Rating->display($options);
-		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1" value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2" value="2" /><label for="Rating2">2</label></div>';
-		$this->assertEqual($result, $expected);
+		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="rating1" value="1" /><label for="rating1">1</label><input type="radio" name="data[rating]" id="rating2" value="2" /><label for="rating2">2</label></div>';
+		$this->assertEquals($result, $expected);
 
 		$options = array(
 			'item' => '42',
@@ -141,8 +140,8 @@ class RatingHelperTestCase extends CakeTestCase {
 			'stars' => 2);
 		$result = $this->Rating->display($options);
 
-		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="Rating1" value="1" /><label for="Rating1">1</label><input type="radio" name="data[rating]" id="Rating2" value="2" /><label for="Rating2">2</label></div>';
-		$this->assertEqual($result, $expected);
+		$expected ='<div class="input radio"><input type="radio" name="data[rating]" id="rating1" value="1" /><label for="rating1">1</label><input type="radio" name="data[rating]" id="rating2" value="2" /><label for="rating2">2</label></div>';
+		$this->assertEquals($result, $expected);
 	}
 
 /**

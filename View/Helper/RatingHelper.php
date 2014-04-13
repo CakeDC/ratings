@@ -24,14 +24,23 @@ class RatingHelper extends AppHelper {
  *
  * @var array
  */
-	public $helpers = array ('Html', 'Form', 'Js' => 'Jquery');
+	public $helpers = array(
+		'Html',
+		'Form',
+		'Js' =>
+		'Jquery'
+	);
 
 /**
  * Allowed types of html list elements
  *
  * @var array $allowedTypes
  */
-	public $allowedTypes = array('ul', 'ol', 'radio');
+	public $allowedTypes = array(
+		'ul',
+		'ol',
+		'radio'
+	);
 
 /**
  * Default settings
@@ -55,6 +64,7 @@ class RatingHelper extends AppHelper {
  *
  * @param array $options
  * @param array $urlHtmlAttributes Attributes for the rating links inside the list
+ * @throws Exception
  * @return string markup that displays the rating options
  */
 	public function display($options = array(), $urlHtmlAttributes = array()) {
@@ -63,17 +73,28 @@ class RatingHelper extends AppHelper {
 			throw new Exception(__d('ratings', 'You must set the id of the item you want to rate.'), E_USER_NOTICE);
 		}
 
-		if ($options['type'] == 'radio') {
+		if ($options['type'] === 'radio') {
 			return $this->starForm($options, $urlHtmlAttributes);
+		}
+
+		if (!isset($options['named'])) {
+			$options['named'] = true;
 		}
 
 		$stars = null;
 		for ($i = 1; $i <= $options['stars']; $i++) {
 			$link = null;
-			if ($options['link'] == true) {
-				$url = array_merge($options['url'], array('rate' => $options['item'], 'rating' => $i));
-				if ($options['redirect']) {
-					$url['redirect'] = 1;
+			if ($options['link'] === true) {
+				if ($options['named'] === true) {
+					$url = array_merge($options['url'], array('rate' => $options['item'], 'rating' => $i));
+					if ($options['redirect']) {
+						$url['redirect'] = 1;
+					}
+				} else {
+					$url = array_merge($options['url'], array('?' => array('rate' => $options['item'], 'rating' => $i)));
+					if ($options['redirect']) {
+						$url['?']['redirect'] = 1;
+					}
 				}
 				$link = $this->Html->link($i, $url, $urlHtmlAttributes);
 			}
@@ -111,11 +132,11 @@ class RatingHelper extends AppHelper {
 		$percentage = $this->percentage($value, $total);
 
 		if (!empty($options['element'])) {
-			$View =& ClassRegistry:: getObject('view');
-			return $View->element($options['element'], array(
+			return $this->_View->element($options['element'], array(
 				'value' => $value,
 				'percentage' => $percentage,
-				'total' => $total));
+				'total' => $total)
+			);
 		}
 
 		$options['innerOptions']['style'] = 'width: ' . $percentage . '%';
@@ -166,7 +187,8 @@ class RatingHelper extends AppHelper {
 			'type' => 'radio',
 			'legend' => false,
 			'value' => isset($options['value']) ? round($options['value']) : 0,
-			'options' => array_combine(range(1, $options['stars']), range(1, $options['stars']))));
+			'options' => array_combine(range(1, $options['stars']), range(1, $options['stars'])))
+		);
 		if ($options['createForm']) {
 			if (!empty($options['target']) && !empty($options['createForm']['url']) && !empty($options['createForm']['ajaxOptions'])) {
 				$result .= $this->Js->submit(__d('ratings', 'Rate!'), array_merge(array('url' => $options['createForm']['url']), $options['createForm']['ajaxOptions'])) . "\n";
@@ -176,7 +198,7 @@ class RatingHelper extends AppHelper {
 			}
 			$result .= $this->Form->end() . "\n";
 			if ($flush) {
-			$result .= $this->Js->writeBuffer();
+				$result .= $this->Js->writeBuffer();
 			}
 		}
 		return $result;
