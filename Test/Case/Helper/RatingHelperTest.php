@@ -9,8 +9,10 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::import('Helper', array('Html', 'Ratings.Rating', 'Form'));
 App::uses('Controller', 'Controller');
+App::uses('HtmlHelper', 'View/Helper');
+App::uses('FormHelper', 'View/Helper');
+App::uses('RatingsHelper', 'Ratings.View/Helper');
 
 
 /**
@@ -94,12 +96,12 @@ class RatingHelperTestCase extends CakeTestCase {
 			'stars' => 5);
 		$result = $this->Rating->display($options);
 		$expected =
-		'<ul class="rating rating-0">'.
-			'<li class="star1"><a href="/articles/rate/rate:42/rating:1/redirect:1">1</a></li>'.
-			'<li class="star2"><a href="/articles/rate/rate:42/rating:2/redirect:1">2</a></li>'.
-			'<li class="star3"><a href="/articles/rate/rate:42/rating:3/redirect:1">3</a></li>'.
-			'<li class="star4"><a href="/articles/rate/rate:42/rating:4/redirect:1">4</a></li>'.
-			'<li class="star5"><a href="/articles/rate/rate:42/rating:5/redirect:1">5</a></li>'.
+		'<ul class="rating rating-0">' .
+			'<li class="star1"><a href="/articles/rate/rate:42/rating:1/redirect:1">1</a></li>' .
+			'<li class="star2"><a href="/articles/rate/rate:42/rating:2/redirect:1">2</a></li>' .
+			'<li class="star3"><a href="/articles/rate/rate:42/rating:3/redirect:1">3</a></li>' .
+			'<li class="star4"><a href="/articles/rate/rate:42/rating:4/redirect:1">4</a></li>' .
+			'<li class="star5"><a href="/articles/rate/rate:42/rating:5/redirect:1">5</a></li>' .
 		'</ul>';
 		$this->assertEquals($result, $expected);
 

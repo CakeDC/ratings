@@ -176,7 +176,7 @@ class RatingsComponent extends Component {
 		$this->Controller->set($result);
 		if (!empty($redirect)) {
 			if (is_bool($redirect)) {
-				$this->redirect($this->buildUrl());
+				$this->redirect($this->removeRatingParamsFromUrl());
 			} else {
 				$this->redirect($redirect);
 			}
@@ -190,14 +190,7 @@ class RatingsComponent extends Component {
  *
  * @return array
  */
-	public function buildUrl() {
-		$params = array(
-			'plugin' => $this->Controller->request->params['plugin'],
-			'controller' => $this->Controller->request->params['controller'],
-			'action' => $this->Controller->request->params['action']
-		);
-		$params = array_merge($params, $this->Controller->request->params['pass']);
-
+	public function removeRatingParamsFromUrl() {
 		if ($this->named === true) {
 			$queryParams = $this->Controller->request->params['named'];
 		} else {
@@ -205,11 +198,18 @@ class RatingsComponent extends Component {
 		}
 
 		foreach ($queryParams as $name => $value) {
-			if (!isset($this->parameters[$name])) {
-				$params[$name] = $value;
+			if (isset($this->parameters[$name])) {
+				unset($queryParams[$name]);
 			}
 		}
-		return $params;
+
+		if ($this->named === true) {
+			$this->Controller->request->params['named'] = $queryParams;
+		} else {
+			$this->Controller->request->query = $queryParams;
+		}
+
+		return Router::reverse($this->Controller->request);
 	}
 
 /**
