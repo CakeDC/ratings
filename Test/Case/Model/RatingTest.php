@@ -17,9 +17,7 @@
  * @package 	ratings
  * @subpackage 	ratings.tests.cases.models
  */
-
-App::uses('Model', 'Model');
-class RatingTestCase extends CakeTestCase {
+class RatingTest extends CakeTestCase {
 
 /**
  * Rating Model
@@ -52,7 +50,7 @@ class RatingTestCase extends CakeTestCase {
  * @return void
  */
 	public function startTest($method) {
-		Configure::write('App.UserClass', null); 
+		Configure::write('App.UserClass', null);
 		parent::startTest($method);
 		$this->Rating = ClassRegistry::init('Ratings.Rating');
 	}
