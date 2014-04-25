@@ -26,7 +26,12 @@ class RatingsComponent extends Component {
  *
  * @var array $components
  */
-	public $components = array('Cookie', 'Session', 'Auth', 'RequestHandler');
+	public $components = array(
+		'Cookie',
+		'Session',
+		'Auth',
+		'RequestHandler'
+	);
 
 /**
  * Enabled / disable the component
@@ -42,7 +47,9 @@ class RatingsComponent extends Component {
  *
  * @var array $actionNames
  */
-	public $actionNames = array('view');
+	public $actionNames = array(
+		'view'
+	);
 
 /**
  * Name of 'rateable' model
@@ -63,11 +70,22 @@ class RatingsComponent extends Component {
 	public $assocName = 'Rating';
 
 /**
- * List of named args used in component
+ * List of query args used in component
  *
  * @var array $parameters
  */
-	public $parameters = array('rate' => true, 'rating'=> true, 'redirect' => true);
+	public $parameters = array(
+		'rate' => true,
+		'rating' => true,
+		'redirect' => true
+	);
+
+/**
+ * Used named parameters or query string
+ *
+ * @return array
+ */
+	public $named = true;
 
 /**
  * Constructor. 
@@ -83,16 +101,17 @@ class RatingsComponent extends Component {
 				}
 			}
 		}
-	} 	
+	}
+
 /**
  * Callback
  *
- * @param object Controller object
+ * @param Controller $Controller
+ * @return void
  */
 	public function initialize(Controller $Controller) {
-	//public function initialize(&$Controller, $settings = array()) {
 		$this->Controller = $Controller;
- 		if ($this->enabled == true) {
+ 		if ($this->enabled === true) {
 			$this->Controller->request->params['isJson'] = (isset($this->Controller->request->params['url']['ext']) && $this->Controller->request->params['url']['ext'] === 'json');
 			if ($this->Controller->request->params['isJson']) {
 				Configure::write('debug', 0);
@@ -110,12 +129,16 @@ class RatingsComponent extends Component {
 /**
  * Callback
  *
- * @param object Controller object
+ * @param Controller $Controller
  */
 	public function startup(Controller $Controller) {
 		$message = '';
 		$rating = null;
-		$params = $Controller->request->params['named'];
+		if ($this->named === true) {
+			$params = $Controller->request->params['named'];
+		} else {
+			$params = $Controller->request->query;
+		}
 		if (empty($params['rating']) && !empty($Controller->request->data[$Controller->modelClass]['rating'])) {
 			$params['rating'] = $Controller->request->data[$Controller->modelClass]['rating'];
 		}
@@ -153,7 +176,7 @@ class RatingsComponent extends Component {
 		$this->Controller->set($result);
 		if (!empty($redirect)) {
 			if (is_bool($redirect)) {
-				$this->redirect($this->buildUrl());
+				$this->redirect($this->removeRatingParamsFromUrl());
 			} else {
 				$this->redirect($redirect);
 			}
@@ -167,15 +190,26 @@ class RatingsComponent extends Component {
  *
  * @return array
  */
-	public function buildUrl() {
-		$params = array('plugin' => $this->Controller->request->params['plugin'], 'controller' => $this->Controller->request->params['controller'],  'action' => $this->Controller->request->params['action']);
-		$params = array_merge($params, $this->Controller->request->params['pass']);
-		foreach ($this->Controller->request->params['named'] as $name => $value) {
-			if (!isset($this->parameters[$name])) {
-				$params[$name] = $value;
+	public function removeRatingParamsFromUrl() {
+		if ($this->named === true) {
+			$queryParams = $this->Controller->request->params['named'];
+		} else {
+			$queryParams = $this->Controller->request->query;
+		}
+
+		foreach ($queryParams as $name => $value) {
+			if (isset($this->parameters[$name])) {
+				unset($queryParams[$name]);
 			}
 		}
-		return $params;
+
+		if ($this->named === true) {
+			$this->Controller->request->params['named'] = $queryParams;
+		} else {
+			$this->Controller->request->query = $queryParams;
+		}
+
+		return Router::reverse($this->Controller->request);
 	}
 
 /**
@@ -198,7 +232,12 @@ class RatingsComponent extends Component {
 			$this->Session->setFlash($this->viewVars['authMessage']);
 		}
 		if (!empty($this->Controller->request->params['isAjax']) || !empty($this->Controller->request->params['isJson'])) {
-			$this->Controller->setAction('rated', $this->Controller->request->params['named']['rate']);
+			if ($this->named === true) {
+				$rate = $this->Controller->request->params['named']['rate'];
+			} else {
+				$rate = $this->Controller->request->query['rate'];
+			}
+			$this->Controller->setAction('rated', $rate);
 			return $this->Controller->render('rated');
 		} else if (isset($this->Controller->viewVars['status']) && isset($this->Controller->viewVars['message'])) {
 			$this->Controller->Session->setFlash($this->Controller->viewVars['message'], 'default', array(), $this->Controller->viewVars['status']);

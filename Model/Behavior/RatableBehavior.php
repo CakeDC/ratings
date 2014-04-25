@@ -8,6 +8,7 @@
  * @copyright Copyright 2010 - 1013 - 1013, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('ModelBehavior', 'Model');
 
 /**
  * CakePHP Ratings Plugin
@@ -72,7 +73,7 @@ class RatableBehavior extends ModelBehavior {
 /**
  * Setup
  *
- * @param AppModel $Model
+ * @param Model $Model
  * @param array $settings
  * @return void
  */
@@ -108,10 +109,9 @@ class RatableBehavior extends ModelBehavior {
 /**
  * Saves a new rating
  *
- * @param AppModel $Model
+ * @param Model $Model
  * @param string $foreignKey
  * @param string $userId
- * @param numeric $value
  * @return mixed boolean or calculated sum
  */
 	public function saveRating(Model $Model, $foreignKey = null, $userId = null, $value = 0) {
@@ -165,11 +165,10 @@ class RatableBehavior extends ModelBehavior {
 		return false;
 	}
 
-
 /**
  * Remove exists rating
  *
- * @param AppModel $Model
+ * @param Model $Model
  * @param string $foreignKey
  * @param string $userId
  * @param numeric $value
@@ -221,7 +220,7 @@ class RatableBehavior extends ModelBehavior {
  * See also Ratable::calculateRating() and decide which one suits your needs better
  *
  * @see Ratable::calculateRating()
- * @param AppModel $Model
+ * @param Model $Model
  * @param string $foreignKey
  * @param integer $value of new rating
  * @param mixed $saveToField boolean or fieldname
@@ -294,7 +293,8 @@ class RatableBehavior extends ModelBehavior {
 		$data = $Model->find('first', array(
 			'conditions' => array(
 				$Model->alias . '.' . $Model->primaryKey => $foreignKey),
-			'recursive' => -1));
+			'recursive' => -1
+		));
 
 		$fieldSummary = $this->settings[$Model->alias]['fieldSummary'];
 		$fieldCounter = $this->settings[$Model->alias]['fieldCounter'];
@@ -394,7 +394,7 @@ class RatableBehavior extends ModelBehavior {
 /**
  * Method to check if an entry is rated by a certain user
  *
- * @param AppModel $Model
+ * @param Model $Model
  * @param mixed Single foreign key as uuid or int or array of foreign keys
  * @param mixed Boolean true or false if a single foreign key was supplied else an array of already voted keys
  * @return mixed Array of related foreignKeys when querying for multiple entries, entry or false otherwise
@@ -428,7 +428,7 @@ class RatableBehavior extends ModelBehavior {
 /**
  * afterRate callback to the model
  *
- * @param AppModel $Model
+ * @param Model $Model
  * @param array
  * @return void
  */
@@ -441,7 +441,7 @@ class RatableBehavior extends ModelBehavior {
 /**
  * beforeRate callback to the model
  *
- * @param AppModel $Model
+ * @param Model $Model
  * @param array
  * @return void
  */
@@ -454,7 +454,7 @@ class RatableBehavior extends ModelBehavior {
 /**
  * More intelligent version of saveRating - checks record existance and ratings
  *
- * @param AppModel $Model
+ * @param Model $Model
  * @param string model primary key / id
  * @param mixed user id integer or string uuid
  * @param mixed integer or string rating
@@ -504,7 +504,7 @@ class RatableBehavior extends ModelBehavior {
  * For example a rating of 1 will increase the value in the field "rating_1" by 1,
  * a rating of 2 will increase "rating_2" by one...
  *
- * @param object Model
+ * @param Model $Model
  * @param array Data passed to afterRate() or similar structure
  * @return boolean True on success
  */

@@ -8,6 +8,7 @@
  * @copyright Copyright 2010 - 1013 - 1013, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('AppModel', 'Model');
 
 /**
  * CakePHP Ratings Plugin
@@ -15,4 +16,5 @@
  * @package ratings
  */
 class RatingsAppModel extends AppModel {
+
 }
