@@ -12,7 +12,7 @@
 App::uses('Controller', 'Controller');
 App::uses('HtmlHelper', 'View/Helper');
 App::uses('FormHelper', 'View/Helper');
-App::uses('RatingsHelper', 'Ratings.View/Helper');
+App::uses('RatingHelper', 'Ratings.View/Helper');
 
 
 /**
