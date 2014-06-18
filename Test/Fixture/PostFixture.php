@@ -62,6 +62,4 @@ class PostFixture extends CakeTestFixture {
 			'rating_count' => 0,
 			'integer_rating' => 0),
 	);
-
 }
-?>
