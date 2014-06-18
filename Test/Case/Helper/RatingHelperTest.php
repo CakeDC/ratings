@@ -1,18 +1,18 @@
 <?php
 /**
- * Copyright 2010 - 1013 - 1013, Cake Development Corporation (http://cakedc.com)
+ * Copyright 2010 - 2014, Cake Development Corporation (http://cakedc.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright Copyright 2010 - 1013 - 1013, Cake Development Corporation (http://cakedc.com)
+ * @copyright Copyright 2010 - 2014, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
 App::uses('Controller', 'Controller');
 App::uses('HtmlHelper', 'View/Helper');
 App::uses('FormHelper', 'View/Helper');
-App::uses('RatingsHelper', 'Ratings.View/Helper');
+App::uses('RatingHelper', 'Ratings.View/Helper');
 
 
 /**

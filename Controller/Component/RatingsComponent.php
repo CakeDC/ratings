@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright 2010 - 1013 - 1013, Cake Development Corporation (http://cakedc.com)
+ * Copyright 2010 - 2014, Cake Development Corporation (http://cakedc.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright Copyright 2010 - 1013 - 1013, Cake Development Corporation (http://cakedc.com)
+ * @copyright Copyright 2010 - 2014, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
@@ -94,7 +94,7 @@ class RatingsComponent extends Component {
  */
 	public function __construct(ComponentCollection $collection, $settings = array()) {
 		parent::__construct($collection, $settings);
- 		if ($this->enabled == true) {
+ 		if ($this->enabled === true) {
 			foreach ($settings as $setting => $value) {
 				if (isset($this->{$setting})) {
 					$this->{$setting} = $value;
@@ -132,7 +132,6 @@ class RatingsComponent extends Component {
  * @param Controller $Controller
  */
 	public function startup(Controller $Controller) {
-		$message = '';
 		$rating = null;
 		if ($this->named === true) {
 			$params = $Controller->request->params['named'];
@@ -152,9 +151,11 @@ class RatingsComponent extends Component {
 /**
  * Adds as user rating for a model record
  *
- * @param string $rate the model record id
+ * @param string $rate The model record id
  * @param string $rating
- * @param mixed $redirect boolean to redirect to same url or string or array to use it for Router::url()
+ * @param string $user
+ * @param mixed $redirect Boolean to redirect to same url or string or array to use it for Router::url()
+ * @return array
  */
 	public function rate($rate, $rating, $user, $redirect = false) {
 		$Controller = $this->Controller;
