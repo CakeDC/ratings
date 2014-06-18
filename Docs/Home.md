@@ -16,9 +16,9 @@ Documentation
 
 * [Overview](Documentation/Overview.md)
 * [Installation](Documentation/Installation.md)
-* [The Ratings Component](Documentation/The-Ratings-Component.md)
-* [The Ratable Behavior](Documentation/The-Ratable-Behavior.md)
-* [The Rating Helper](Documentation/The-Rating-Helper.md)
+* [Ratings Component](Documentation/Ratings-Component.md)
+* [Ratable Behavior](Documentation/Ratable-Behavior.md)
+* [Rating Helper](Documentation/Rating-Helper.md)
 
 Tutorials
 ---------

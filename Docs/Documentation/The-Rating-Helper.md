@@ -1,44 +1,5 @@
-## Requirements ##
-
-In order to create the tables required, you will need the [CakeDC Migrations Plugin](http://github.com/CakeDC/migrations), which is available under the MIT license.
-
-## Installation ##
-
-Place the ratings folder into any of your plugin directories for your app (for example app/plugins or cake/plugins)
-
-Create database tables using either the schema shell or the migrations plugin:
-
-	cake schema create --plugin Ratings
-
-	cake migration run all --plugin Ratings
-
-Attach the Ratable behavior to your models via the $actsAs variable or dynamically using the BehaviorsCollection object methods:
-
-	public $actsAs = array('Ratings.Ratable');
-
-or
-
-```php
-this->Behaviors->attach('Ratings.Ratable');
-```
-
-or just load 'Ratings.Ratings' component in the controller.
-
-```php
-public $components = array(
-	'Ratings.Ratings'
-);
-```
-
-## Usage ##
-
-Add the Rating helper to you controller
-
-```php
-	public $helpers = array(
-		'Ratings.Rating'
-	);
-```
+Rating Helper
+=============
 
 Use the helper in your views to generate links mark a model record as favorite
 
@@ -71,7 +32,8 @@ $('#ratingform').stars({
 });
 ```
 
-## Ajax support ##
+Ajax support
+------------
 
 If url finished with ".json" extension then response should generate json object instead of page redirect.
 Object contains the following structure:
@@ -90,6 +52,6 @@ There is a sample json layout included in the ratings plugin, but views need to 
 Helper methods
 --------------
 
-* **display()**                              - Displays a bunch of rating links wrapped into a list element of your choice
-* **bar($value, $total, $options)**          - Bar rating
-* **starForm($options, $urlHtmlAttributes)** - Displays a star form
+* **display():** Displays a bunch of rating links wrapped into a list element of your choice.
+* **bar($value, $total, $options):** Bar rating.
+* **starForm($options, $urlHtmlAttributes):** Displays a star form.
