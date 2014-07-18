@@ -13,7 +13,7 @@ Behavior configuration
 
 The following options provide common defaults that, in most cases, need not be redefined:
 
-* **rateClass:** Name of the rate class model, by default is 'Ratings.Rating'.
+* **rateClass:** Name of the rate class model, by default is `Ratings.Rating`.
 * **foreignKey:** Foreign key field, contains rated model id.
 * **field:** Name of the field that is updated with the calculated rating,
 * **fieldSummary:** Optional cache field that will store summary of all ratings that allow to implement quick rating calculation,

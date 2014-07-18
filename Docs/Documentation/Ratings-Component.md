@@ -18,6 +18,6 @@ Component settings
 * **fieldSummary:** Optional cache field that will store summary of all ratings that allow to implement quick rating calculation.
 * **fieldCounter:** Optional cache field that will store count of all ratings that allow to implement quick rating calculation.
 * **calculation:** ```average``` or ```sum```, default is average.
-* **update:** boolean flag, that define permission to rerate(change previous rating).
+* **update:** boolean flag, that define permission to rerate (change previous rating).
 * **modelValidate:** Validate the model before save, default is false.
 * **modelCallbacks:** Run model callbacks when the rating is saved to the model, default is false.
