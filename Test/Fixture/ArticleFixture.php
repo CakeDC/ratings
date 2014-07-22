@@ -1,11 +1,11 @@
 <?php
 /**
- * Copyright 2010, Cake Development Corporation (http://cakedc.com)
+ * Copyright 2010 - 2014, Cake Development Corporation (http://cakedc.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright Copyright 2010, Cake Development Corporation (http://cakedc.com)
+ * @copyright Copyright 2010 - 2014, Cake Development Corporation (http://cakedc.com)
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
@@ -35,7 +35,8 @@ class ArticleFixture extends CakeTestFixture {
 		'rating_2' => array('type' => 'integer', 'null' => false, 'default' => 0, 'length' => 5),
 		'rating_3' => array('type' => 'integer', 'null' => false, 'default' => 0, 'length' => 5),
 		'rating_4' => array('type' => 'integer', 'null' => false, 'default' => 0, 'length' => 5),
-		'rating_5' => array('type' => 'integer', 'null' => false, 'default' => 0, 'length' => 5));
+		'rating_5' => array('type' => 'integer', 'null' => false, 'default' => 0, 'length' => 5)
+	);
 
 /**
  * records property
@@ -54,7 +55,8 @@ class ArticleFixture extends CakeTestFixture {
 			'rating_2' => 0,
 			'rating_3' => 0,
 			'rating_4' => 0,
-			'rating_5' => 0),
+			'rating_5' => 0
+		),
 		array(
 			'id' => 2,
 			'user_id' => 0,
@@ -65,7 +67,8 @@ class ArticleFixture extends CakeTestFixture {
 			'rating_2' => 0,
 			'rating_3' => 0,
 			'rating_4' => 0,
-			'rating_5' => 0));
+			'rating_5' => 0
+		)
+	);
 
 }
-?>
