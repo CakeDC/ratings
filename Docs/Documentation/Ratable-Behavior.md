@@ -4,10 +4,10 @@ Ratable Behavior
 Behavior configuration
 ----------------------
 
-* **modelClass:** Must be set in the case of a plugin model to make the behavior work with plugin models like `Plugin.Model`. Required to define for plugin's models, and for model of app which name does not equal to class name,
+* **modelClass:** Must be set in the case of a plugin model to make the behavior work with plugin models like `Plugin.Model`. Required to define for plugin's models, and for model of app which name does not equal to class name.
 * **saveToField:** Boolean, true if the calculated result should be saved in the rated model
-* **calculation:** 'average' or 'sum', default is average.
-* **update:** Boolean flag, that define permission to rerate(change previous rating)
+* **calculation:** `average` or `sum`, default is average.
+* **update:** Boolean flag, that define permission to re-rate (change previous rating)
 * **modelValidate:** Validate the model before save, default is false
 * **modelCallbacks:** Run model callbacks when the rating is saved to the model, default is false
 
@@ -22,16 +22,16 @@ The following options provide common defaults that, in most cases, need not be r
 Behavior callbacks
 ------------------
 
-The ```beforeRate``` and ```afterRate``` callbacks are currently supported, and are defined in the rated model. These are called before and after the rate operation respectively.
+The `beforeRate()` and `afterRate()` callbacks are currently supported, and are defined in the rated model. These are called before and after the rate operation respectively.
 
-BeforeRate callback get one $data parameter that is a array containing:
+The `beforeRate()` callback takes one $data parameter that is an array containing:
 
 * **foreignKey:** Rated object id.
 * **userId:** Rated user id.
 * **value:** Rating value.
 * **type:** Rating mode: saveRating or removeRating.
 
-AfterRate callback get one $data parameter that is a array containing:
+The `afterRate()` callback takes one $data parameter that is an array containing:
 
 * **foreignKey:** Rated object id.
 * **userId:** Rated user id.
@@ -41,7 +41,7 @@ AfterRate callback get one $data parameter that is a array containing:
 * **update:** Update mode value based on configuration.
 * **oldRating:** Previous rating state.
 
-Provided API is:
+The Provided API is:
 
 * **saveRating($foreignKey, $userId, $value):** Allow to add new rating.
 * **removeRating($foreignKey, $userId):** Allow to remove undesired rating.

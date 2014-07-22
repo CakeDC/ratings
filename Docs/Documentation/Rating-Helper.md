@@ -18,7 +18,7 @@ echo $this->Rating->display(array(
 ));
 ```
 
-This generated form will generate form compatible with [jQuery UI Stars](http://plugins.jquery.com/project/Star_Rating_widget).
+This generated form will be compatible with jQuery UI Stars. This jQuery plugin is included in the plugins webroot folder.
 
 Here is the sample of js that will stylize the form:
 
@@ -36,7 +36,8 @@ Ajax support
 ------------
 
 If url finished with ".json" extension then response should generate json object instead of page redirect.
-Object contains the following structure:
+
+The json object contains the following structure:
 
 ```json
 {
@@ -47,7 +48,7 @@ Object contains the following structure:
 }
 ```
 
-There is a sample json layout included in the ratings plugin, but views need to implement for each rate action.
+There is a sample json layout included in the ratings plugin, but views need to be implement for each rate action.
 
 Helper methods
 --------------
