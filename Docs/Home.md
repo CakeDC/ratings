@@ -19,8 +19,3 @@ Documentation
 * [Ratings Component](Documentation/Ratings-Component.md)
 * [Ratable Behavior](Documentation/Ratable-Behavior.md)
 * [Rating Helper](Documentation/Rating-Helper.md)
-
-Tutorials
----------
-
-* [Quick Start](Tutorials/Quick-Start.md)
